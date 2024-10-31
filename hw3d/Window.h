@@ -3,6 +3,8 @@
 #include "MyException.h"
 #include "Keyboard.h"
 #include "Mouse.h"
+#include <optional>
+
 
 class Window
 {
@@ -31,7 +33,7 @@ private:
 		~WindowClass();
 		WindowClass(const WindowClass&) = delete;
 		WindowClass& operator=(const WindowClass&) = delete;
-		static constexpr const char* wndClassName = "Direct3D Engine Window";
+		static constexpr const char* wndClassName = "My Direct3D Engine Window";
 		static WindowClass wndClass;
 		HINSTANCE hInst;
 	};
@@ -41,6 +43,7 @@ public:
 	Window(const Window&) = delete;
 	Window& operator=(const Window&) = delete;
 	void SetTitle(const std::string& title);
+	static std::optional<int> ProcessMessages();
 private:
 	static LRESULT CALLBACK HandleMsgSetup(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noexcept;
 	static LRESULT CALLBACK HandleMsgThunk(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noexcept;
