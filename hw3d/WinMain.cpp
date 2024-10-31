@@ -1,5 +1,4 @@
 #include "Window.h"
-#include <sstream>
 
 
 int CALLBACK WinMain(
@@ -20,24 +19,6 @@ int CALLBACK WinMain(
 			TranslateMessage(&msg);
 			DispatchMessage(&msg);
 
-			// test code
-			while (!wnd.mouse.IsEmpty())
-			{
-				const auto e = wnd.mouse.Read();
-				switch (e.GetType())
-				{
-				case Mouse::Event::Type::Leave:
-					wnd.SetTitle("Gone!");
-					break;
-				case Mouse::Event::Type::Move:
-				{
-					std::ostringstream oss;
-					oss << "Mouse moved to (" << e.GetPosX() << "," << e.GetPosY() << ")";
-					wnd.SetTitle(oss.str());
-				}
-				break;
-				}
-			}
 		}
 
 		// check if GetMessage call itself borked
