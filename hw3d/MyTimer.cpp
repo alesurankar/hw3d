@@ -3,12 +3,12 @@
 
 using namespace std::chrono;
 
-MyTimer::MyTimer()
+MyTimer::MyTimer() noexcept
 {
 	last = steady_clock::now();
 }
 
-float MyTimer::Mark()
+float MyTimer::Mark() noexcept
 {
 	const auto old = last;
 	last = steady_clock::now();
@@ -16,7 +16,7 @@ float MyTimer::Mark()
 	return frameTime.count();
 }
 
-float MyTimer::Peek() const
+float MyTimer::Peek() const noexcept
 {
 	return duration<float>(steady_clock::now() - last).count();
 }
