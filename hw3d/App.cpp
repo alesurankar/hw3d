@@ -2,7 +2,7 @@
 
 App::App()
 	:
-	wnd(800, 600, "My App")
+	wnd(800, 600, "My Window")
 {}
 
 int App::Go()

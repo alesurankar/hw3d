@@ -9,7 +9,6 @@
 class Graphics
 {
 public:
-public:
 	class Exception : public MyException
 	{
 		using MyException::MyException;
@@ -46,6 +45,7 @@ public:
 	private:
 		std::string reason;
 	};
+public:
 	Graphics(HWND hWnd);
 	Graphics(const Graphics&) = delete;
 	Graphics& operator=(const Graphics&) = delete;
