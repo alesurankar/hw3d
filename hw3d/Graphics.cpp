@@ -114,11 +114,10 @@ void Graphics::DrawTestTriangle()
 	{
 		{ 0.0f,0.5f },
 		{ 0.5f,-0.5f },
+		{ 0.5f,-0.5f },
 		{ -0.5f,-0.5f },
-
-		{0.5f,1.0f},
-		{1.0f,0.5f},
-		{0.5f,0.5f},
+		{ -0.5f,-0.5f },
+		{ 0.0f,0.5f },
 	};
 	wrl::ComPtr<ID3D11Buffer> pVertexBuffer;
 	D3D11_BUFFER_DESC bd = {};
@@ -179,7 +178,7 @@ void Graphics::DrawTestTriangle()
 
 
 	// Set primitive topology to triangle list (groups of 3 vertices)
-	pContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+	pContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_LINELIST);
 
 
 	// configure viewport
