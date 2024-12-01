@@ -193,7 +193,7 @@ void Graphics::DrawTestTriangle(float angle,float x, float y)
 		{
 			dx::XMMatrixTranspose(
 				dx::XMMatrixRotationZ(angle) *
-				dx::XMMatrixScaling(3.0f / 4.0f,1.0f,1.0f) *
+				dx::XMMatrixRotationX(angle)*
 				dx::XMMatrixTranslation(x,y,4.0f) *
 				dx::XMMatrixPerspectiveLH(1.0f,3.0f/4.0f,0.5f,10.0f)
 			)
