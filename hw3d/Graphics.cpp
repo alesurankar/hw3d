@@ -104,7 +104,7 @@ void Graphics::ClearBuffer(float red, float green, float blue) noexcept
 void Graphics::DrawTestTriangle(float angle,float x, float y)
 {
 	dx::XMVECTOR v = dx::XMVectorSet(3.0f, 3.0f, 0.0f, 0.0f);
-	auto result = dx::XMVector4Dot(v, v);
+	auto result = dx::XMVector3Transform(v,dx::XMMatrixScaling(1.5f,0.0f,0.0f));
 	auto xx = dx::XMVectorGetX(result);
 
 	HRESULT hr;
