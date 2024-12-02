@@ -13,4 +13,7 @@ private:
 private:
 	Window wnd;
 	MyTimer timer;
+	float x1 = 0.0f;
+	float y1 = 0.0f;
+	float z1 = 0.0f;
 };
