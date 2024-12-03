@@ -31,6 +31,7 @@ int App::Go()
 			// if return optional has value, means we're quitting so return exit code
 			return *ecode;
 		}
+		UpdateFrame();
 		DoFrame();
 	}
 }
@@ -38,8 +39,38 @@ int App::Go()
 App::~App()
 {}
 
+void App::UpdateFrame()
+{
+
+	if (wnd.kbd.KeyIsPressed('W'))
+	{
+		y1 -= 0.02f;
+	}
+	if (wnd.kbd.KeyIsPressed('S'))
+	{
+		y1 += 0.02f;
+	}
+	if (wnd.kbd.KeyIsPressed('A'))
+	{
+		x1 += 0.02f;
+	}
+	if (wnd.kbd.KeyIsPressed('D'))
+	{
+		x1 -= 0.02f;
+	}
+	if (wnd.kbd.KeyIsPressed(VK_SHIFT))
+	{
+		z1 += 0.002f;
+	}
+	if (wnd.kbd.KeyIsPressed(VK_SPACE))
+	{
+		z1 -= 0.002f;
+	}
+}
+
 void App::DoFrame()
 {
+	wnd.Gfx().SetProjection(DirectX::XMMatrixPerspectiveLH(y1, 3*y1/4, z1, x1));
 	auto dt = timer.Mark();
 	wnd.Gfx().ClearBuffer(0.07f, 0.0f, 0.12f);
 	for (auto& b : boxes)
