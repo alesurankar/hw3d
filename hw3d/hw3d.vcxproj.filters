@@ -144,6 +144,9 @@
     <ClCompile Include="PointLight.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Cylinder.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="WindowsMessageMap.h">
@@ -305,6 +308,9 @@
     <ClInclude Include="TestObject.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Cylinder.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="hw3d.rc">
@@ -336,5 +342,6 @@
     <FxCompile Include="SolidPS.hlsl" />
     <FxCompile Include="PhongVS.hlsl" />
     <FxCompile Include="PhongPS.hlsl" />
+    <FxCompile Include="IndexedPhongPS.hlsl" />
   </ItemGroup>
 </Project>
