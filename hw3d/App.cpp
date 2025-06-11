@@ -1,11 +1,13 @@
 #include "App.h"
 #include "Box.h"
+#include "Cylinder.h"
+#include "Pyramid.h"
+#include "SkinnedBox.h"
+#include "AssTest.h"
 #include <memory>
 #include <algorithm>
 #include "MyMath.h"
 #include "Surface.h"
-#include "Cylinder.h"
-#include "Pyramid.h"
 #include "GDIPlusManager.h"
 #include "imgui/imgui.h"
 #include <assimp/Importer.hpp>
@@ -18,15 +20,9 @@ GDIPlusManager gdipm;
 
 App::App()
 	:
-	wnd(800, 600, "My Window"),
+	wnd(800, 600, "The Donkey Fart Box"),
 	light(wnd.Gfx())
 {
-
-	Assimp::Importer imp;
-	auto model = imp.ReadFile("models\\suzanne.obj",
-		aiProcess_Triangulate |
-		aiProcess_JoinIdenticalVertices
-	);
 	class Factory
 	{
 	public:
@@ -37,22 +33,33 @@ App::App()
 		std::unique_ptr<Drawable> operator()()
 		{
 			const DirectX::XMFLOAT3 mat = { cdist(rng),cdist(rng),cdist(rng) };
+
 			switch (sdist(rng))
 			{
 			case 0:
 				return std::make_unique<Box>(
-					gfx,rng,adist,ddist,
-					odist,rdist,bdist,mat
+					gfx, rng, adist, ddist,
+					odist, rdist, bdist, mat
 				);
 			case 1:
 				return std::make_unique<Cylinder>(
-					gfx,rng,adist,ddist,odist,
-					rdist,bdist,tdist
+					gfx, rng, adist, ddist, odist,
+					rdist, bdist, tdist
 				);
 			case 2:
 				return std::make_unique<Pyramid>(
 					gfx, rng, adist, ddist, odist,
 					rdist, tdist
+				);
+			case 3:
+				return std::make_unique<SkinnedBox>(
+					gfx, rng, adist, ddist,
+					odist, rdist
+				);
+			case 4:
+				return std::make_unique<AssTest>(
+					gfx, rng, adist, ddist,
+					odist, rdist, mat, 1.5f
 				);
 			default:
 				assert(false && "impossible drawable option in factory");
@@ -62,7 +69,7 @@ App::App()
 	private:
 		Graphics& gfx;
 		std::mt19937 rng{ std::random_device{}() };
-		std::uniform_int_distribution<int> sdist{ 0,2 };
+		std::uniform_int_distribution<int> sdist{ 0,4 };
 		std::uniform_real_distribution<float> adist{ 0.0f,PI * 2.0f };
 		std::uniform_real_distribution<float> ddist{ 0.0f,PI * 0.5f };
 		std::uniform_real_distribution<float> odist{ 0.0f,PI * 0.08f };
@@ -72,7 +79,6 @@ App::App()
 		std::uniform_int_distribution<int> tdist{ 3,30 };
 	};
 
-	Factory f(wnd.Gfx());
 	drawables.reserve(nDrawables);
 	std::generate_n(std::back_inserter(drawables), nDrawables, Factory{ wnd.Gfx() });
 
@@ -169,7 +175,6 @@ void App::SpawnBoxWindows() noexcept
 			i++;
 		}
 	}
-
 }
 
 App::~App()
