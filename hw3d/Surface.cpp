@@ -42,7 +42,7 @@ void Surface::Clear(Color fillValue) noexcept
 	memset(pBuffer.get(), fillValue.dword, width * height * sizeof(Color));
 }
 
-void Surface::PutPixel(unsigned int x, unsigned int y, Color c) noexcept(NDEBUG)
+void Surface::PutPixel(unsigned int x, unsigned int y, Color c) noxnd
 {
 	assert(x >= 0);
 	assert(y >= 0);
@@ -51,7 +51,7 @@ void Surface::PutPixel(unsigned int x, unsigned int y, Color c) noexcept(NDEBUG)
 	pBuffer[y * width + x] = c;
 }
 
-Surface::Color Surface::GetPixel(unsigned int x, unsigned int y) const noexcept(NDEBUG)
+Surface::Color Surface::GetPixel(unsigned int x, unsigned int y) const noxnd
 {
 	assert(x >= 0);
 	assert(y >= 0);
@@ -183,7 +183,7 @@ void Surface::Save(const std::string& filename) const
 	}
 }
 
-void Surface::Copy(const Surface& src) noexcept(NDEBUG)
+void Surface::Copy(const Surface& src) noxnd
 {
 	assert(width == src.width);
 	assert(height == src.height);
@@ -216,7 +216,7 @@ const char* Surface::Exception::what() const noexcept
 
 const char* Surface::Exception::GetType() const noexcept
 {
-	return "My Graphics Exception";
+	return "Chili Graphics Exception";
 }
 
 const std::string& Surface::Exception::GetNote() const noexcept
