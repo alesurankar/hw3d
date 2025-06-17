@@ -239,7 +239,6 @@ Model::~Model() noexcept
 
 std::unique_ptr<Mesh> Model::ParseMesh(Graphics& gfx, const aiMesh& mesh)
 {
-	namespace dx = DirectX;
 	using Dvtx::VertexLayout;
 
 	Dvtx::VertexBuffer vbuf(std::move(
