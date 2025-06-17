@@ -227,19 +227,16 @@ LRESULT Window::HandleMsg(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noe
 		kbd.ClearState();
 		break;
 	case WM_ACTIVATE:
-		OutputDebugString("activeate\n");
 		// confine/free cursor on window to foreground/background if cursor disabled
 		if (!cursorEnabled)
 		{
 			if (wParam & WA_ACTIVE)
 			{
-				OutputDebugString("activeate => confine\n");
 				ConfineCursor();
 				HideCursor();
 			}
 			else
 			{
-				OutputDebugString("activeate => free\n");
 				FreeCursor();
 				ShowCursor();
 			}
@@ -330,7 +327,6 @@ LRESULT Window::HandleMsg(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noe
 		SetForegroundWindow(hWnd);
 		if (!cursorEnabled)
 		{
-			OutputDebugString("lclick => recapture\n");
 			ConfineCursor();
 			HideCursor();
 		}
