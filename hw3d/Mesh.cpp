@@ -63,14 +63,22 @@ void Node::AddChild( std::unique_ptr<Node> pChild ) noxnd
 	childPtrs.push_back( std::move( pChild ) );
 }
 
-void Node::ShowTree() const noexcept
+void Node::ShowTree(int& nodeIndexTracked, std::optional<int>& selectedIndex) const noexcept
 {
-	// if tree node expanded, recursively render all childrenMore actions
-	if (ImGui::TreeNode(name.c_str()))
+	// nodeIndex serves as the uid for gui tree nodes, incremented throughout recursion
+	const int currentNodeIndex = nodeIndexTracked;
+	nodeIndexTracked++;
+	// build up flags for current node
+	const auto node_flags = ImGuiTreeNodeFlags_OpenOnArrow
+		| ((currentNodeIndex == selectedIndex.value_or(-1)) ? ImGuiTreeNodeFlags_Selected : 0)
+		| ((childPtrs.size() == 0) ? ImGuiTreeNodeFlags_Leaf : 0);
+	// if tree node expanded, recursively render all children
+	if (ImGui::TreeNodeEx((void*)(intptr_t)currentNodeIndex, node_flags, name.c_str()))
 	{
+		selectedIndex = ImGui::IsItemClicked() ? currentNodeIndex : selectedIndex;
 		for (const auto& pChild : childPtrs)
 		{
-			pChild->ShowTree();
+			pChild->ShowTree(nodeIndexTracked, selectedIndex);
 		}
 		ImGui::TreePop();
 	}
@@ -84,10 +92,12 @@ public:
 	{
 		// window name defaults to "Model"
 		windowName = windowName ? windowName : "Model";
+		// need an ints to track node indices and selected nodeAdd commentMore actions
+		int nodeIndexTracker = 0;
 		if (ImGui::Begin(windowName))
 		{
 			ImGui::Columns(2, nullptr, true);
-			root.ShowTree();
+			root.ShowTree(nodeIndexTracker, selectedIndex);
 
 			ImGui::NextColumn();
 			ImGui::Text("Orientation");
@@ -107,6 +117,7 @@ public:
 			dx::XMMatrixTranslation(pos.x, pos.y, pos.z);
 	}
 private:
+	std::optional<int> selectedIndex;
 	struct
 	{
 		float roll = 0.0f;
@@ -117,23 +128,25 @@ private:
 		float z = 0.0f;
 	} pos;
 };
-Model::Model( Graphics& gfx,const std::string fileName )
+
+Model::Model(Graphics& gfx, const std::string fileName)
 	:
-	pWindow(std::make_unique<ModelWindow>())
+pWindow(std::make_unique<ModelWindow>())
 {
 	Assimp::Importer imp;
-	const auto pScene = imp.ReadFile( fileName.c_str(),
+	const auto pScene = imp.ReadFile(fileName.c_str(),
 		aiProcess_Triangulate |
 		aiProcess_JoinIdenticalVertices
 	);
 
-	for( size_t i = 0; i < pScene->mNumMeshes; i++ )
+	for (size_t i = 0; i < pScene->mNumMeshes; i++)
 	{
-		meshPtrs.push_back( ParseMesh( gfx,*pScene->mMeshes[i] ) );
+		meshPtrs.push_back(ParseMesh(gfx, *pScene->mMeshes[i]));
 	}
 
-	pRoot = ParseNode( *pScene->mRootNode );
+	pRoot = ParseNode(*pScene->mRootNode);
 }
+
 void Model::Draw(Graphics& gfx) const noxnd
 {
 	pRoot->Draw(gfx, pWindow->GetTransform());
@@ -147,18 +160,18 @@ void Model::ShowWindow(const char* windowName) noexcept
 Model::~Model() noexcept
 {}
 
-std::unique_ptr<Mesh> Model::ParseMesh( Graphics& gfx,const aiMesh& mesh )
+std::unique_ptr<Mesh> Model::ParseMesh(Graphics& gfx, const aiMesh& mesh)
 {
 	namespace dx = DirectX;
 	using Dvtx::VertexLayout;
 
-	Dvtx::VertexBuffer vbuf( std::move(
+	Dvtx::VertexBuffer vbuf(std::move(
 		VertexLayout{}
-		.Append( VertexLayout::Position3D )
-		.Append( VertexLayout::Normal )
-	) );
+		.Append(VertexLayout::Position3D)
+		.Append(VertexLayout::Normal)
+	));
 
-	for( unsigned int i = 0; i < mesh.mNumVertices; i++ )
+	for (unsigned int i = 0; i < mesh.mNumVertices; i++)
 	{
 		vbuf.EmplaceBack(
 			*reinterpret_cast<dx::XMFLOAT3*>(&mesh.mVertices[i]),
@@ -167,29 +180,29 @@ std::unique_ptr<Mesh> Model::ParseMesh( Graphics& gfx,const aiMesh& mesh )
 	}
 
 	std::vector<unsigned short> indices;
-	indices.reserve( mesh.mNumFaces * 3 );
-	for( unsigned int i = 0; i < mesh.mNumFaces; i++ )
+	indices.reserve(mesh.mNumFaces * 3);
+	for (unsigned int i = 0; i < mesh.mNumFaces; i++)
 	{
 		const auto& face = mesh.mFaces[i];
-		assert( face.mNumIndices == 3 );
-		indices.push_back( face.mIndices[0] );
-		indices.push_back( face.mIndices[1] );
-		indices.push_back( face.mIndices[2] );
+		assert(face.mNumIndices == 3);
+		indices.push_back(face.mIndices[0]);
+		indices.push_back(face.mIndices[1]);
+		indices.push_back(face.mIndices[2]);
 	}
 
 	std::vector<std::unique_ptr<Bind::Bindable>> bindablePtrs;
 
-	bindablePtrs.push_back( std::make_unique<Bind::VertexBuffer>( gfx,vbuf ) );
+	bindablePtrs.push_back(std::make_unique<Bind::VertexBuffer>(gfx, vbuf));
 
-	bindablePtrs.push_back( std::make_unique<Bind::IndexBuffer>( gfx,indices ) );
+	bindablePtrs.push_back(std::make_unique<Bind::IndexBuffer>(gfx, indices));
 
-	auto pvs = std::make_unique<Bind::VertexShader>( gfx,L"PhongVS.cso" );
+	auto pvs = std::make_unique<Bind::VertexShader>(gfx, L"PhongVS.cso");
 	auto pvsbc = pvs->GetBytecode();
-	bindablePtrs.push_back( std::move( pvs ) );
+	bindablePtrs.push_back(std::move(pvs));
 
-	bindablePtrs.push_back( std::make_unique<Bind::PixelShader>( gfx,L"PhongPS.cso" ) );
+	bindablePtrs.push_back(std::make_unique<Bind::PixelShader>(gfx, L"PhongPS.cso"));
 
-	bindablePtrs.push_back( std::make_unique<Bind::InputLayout>( gfx,vbuf.GetLayout().GetD3DLayout(),pvsbc ) );
+	bindablePtrs.push_back(std::make_unique<Bind::InputLayout>(gfx, vbuf.GetLayout().GetD3DLayout(), pvsbc));
 
 	struct PSMaterialConstant
 	{
@@ -198,10 +211,11 @@ std::unique_ptr<Mesh> Model::ParseMesh( Graphics& gfx,const aiMesh& mesh )
 		float specularPower = 30.0f;
 		float padding[3];
 	} pmc;
-	bindablePtrs.push_back( std::make_unique<Bind::PixelConstantBuffer<PSMaterialConstant>>( gfx,pmc,1u ) );
+	bindablePtrs.push_back(std::make_unique<Bind::PixelConstantBuffer<PSMaterialConstant>>(gfx, pmc, 1u));
 
-	return std::make_unique<Mesh>( gfx,std::move( bindablePtrs ) );
+	return std::make_unique<Mesh>(gfx, std::move(bindablePtrs));
 }
+
 std::unique_ptr<Node> Model::ParseNode(const aiNode& node) noexcept
 {
 	namespace dx = DirectX;
