@@ -235,11 +235,13 @@ LRESULT Window::HandleMsg(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noe
 			{
 				OutputDebugString("activeate => confine\n");
 				ConfineCursor();
+				HideCursor();
 			}
 			else
 			{
 				OutputDebugString("activeate => free\n");
 				FreeCursor();
+				ShowCursor();
 			}
 		}
 		break;
@@ -326,6 +328,12 @@ LRESULT Window::HandleMsg(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noe
 	case WM_LBUTTONDOWN:
 	{
 		SetForegroundWindow(hWnd);
+		if (!cursorEnabled)
+		{
+			OutputDebugString("lclick => recapture\n");
+			ConfineCursor();
+			HideCursor();
+		}
 		// stifle this mouse message if imgui wants to capture
 		if (imio.WantCaptureMouse)
 		{
