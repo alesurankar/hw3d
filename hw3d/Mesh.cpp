@@ -5,6 +5,7 @@
 
 namespace dx = DirectX;
 
+
 ModelException::ModelException(int line, const char* file, std::string note) noexcept
 	:
 	MyException(line, file),
@@ -23,7 +24,7 @@ const char* ModelException::what() const noexcept
 
 const char* ModelException::GetType() const noexcept
 {
-	return "Chili Model Exception";
+	return "Model Exception";
 }
 
 const std::string& ModelException::GetNote() const noexcept
@@ -32,95 +33,94 @@ const std::string& ModelException::GetNote() const noexcept
 }
 
 // Mesh
-Mesh::Mesh( Graphics& gfx,std::vector<std::unique_ptr<Bind::Bindable>> bindPtrs )
+Mesh::Mesh(Graphics& gfx, std::vector<std::unique_ptr<Bind::Bindable>> bindPtrs)
 {
-	if( !IsStaticInitialized() )
+	if (!IsStaticInitialized())
 	{
-		AddStaticBind( std::make_unique<Bind::Topology>( gfx,D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST ) );
+		AddStaticBind(std::make_unique<Bind::Topology>(gfx, D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST));
 	}
 
-	for( auto& pb : bindPtrs )
+	for (auto& pb : bindPtrs)
 	{
-		if( auto pi = dynamic_cast<Bind::IndexBuffer*>(pb.get()) )
+		if (auto pi = dynamic_cast<Bind::IndexBuffer*>(pb.get()))
 		{
-			AddIndexBuffer( std::unique_ptr<Bind::IndexBuffer>{ pi } );
+			AddIndexBuffer(std::unique_ptr<Bind::IndexBuffer>{ pi });
 			pb.release();
 		}
 		else
 		{
-			AddBind( std::move( pb ) );
+			AddBind(std::move(pb));
 		}
 	}
 
-	AddBind( std::make_unique<Bind::TransformCbuf>( gfx,*this ) );
+	AddBind(std::make_unique<Bind::TransformCbuf>(gfx, *this));
 }
 void Mesh::Draw(Graphics& gfx, DirectX::FXMMATRIX accumulatedTransform) const noxnd
 {
-	DirectX::XMStoreFloat4x4( &transform,accumulatedTransform );
-	Drawable::Draw( gfx );
+	DirectX::XMStoreFloat4x4(&transform, accumulatedTransform);
+	Drawable::Draw(gfx);
 }
 DirectX::XMMATRIX Mesh::GetTransformXM() const noexcept
 {
-	return DirectX::XMLoadFloat4x4( &transform );
+	return DirectX::XMLoadFloat4x4(&transform);
 }
 
 
 // Node
-Node::Node(const std::string& name, std::vector<Mesh*> meshPtrs, const DirectX::XMMATRIX& transform_in) noxnd
+Node::Node(int id, const std::string& name, std::vector<Mesh*> meshPtrs, const DirectX::XMMATRIX& transform_in) noxnd
 	:
-	meshPtrs(std::move(meshPtrs)), 
-	name(name)
+id(id),
+meshPtrs(std::move(meshPtrs)),
+name(name)
 {
 	dx::XMStoreFloat4x4(&transform, transform_in);
 	dx::XMStoreFloat4x4(&appliedTransform, dx::XMMatrixIdentity());
 }
-void Node::Draw( Graphics& gfx,DirectX::FXMMATRIX accumulatedTransform ) const noxnd
+
+void Node::Draw(Graphics& gfx, DirectX::FXMMATRIX accumulatedTransform) const noxnd
 {
 	const auto built =
 		dx::XMLoadFloat4x4(&appliedTransform) *
 		dx::XMLoadFloat4x4(&transform) *
 		accumulatedTransform;
-	for( const auto pm : meshPtrs )
+	for (const auto pm : meshPtrs)
 	{
-		pm->Draw( gfx,built );
+		pm->Draw(gfx, built);
 	}
-	for( const auto& pc : childPtrs )
+	for (const auto& pc : childPtrs)
 	{
-		pc->Draw( gfx,built );
+		pc->Draw(gfx, built);
 	}
-}
-void Node::AddChild( std::unique_ptr<Node> pChild ) noxnd
-{
-	assert( pChild );
-	childPtrs.push_back( std::move( pChild ) );
 }
 
-void Node::ShowTree(int& nodeIndexTracked, std::optional<int>& selectedIndex, Node*& pSelectedNode) const noexcept
+void Node::AddChild(std::unique_ptr<Node> pChild) noxnd
 {
-	// nodeIndex serves as the uid for gui tree nodes, incremented throughout recursion
-	const int currentNodeIndex = nodeIndexTracked;
-	nodeIndexTracked++;
+	assert(pChild);
+	childPtrs.push_back(std::move(pChild));
+}
+
+void Node::ShowTree(std::optional<int>& selectedIndex, Node*& pSelectedNode) const noexcept
+{
 	// build up flags for current node
 	const auto node_flags = ImGuiTreeNodeFlags_OpenOnArrow
-		| ((currentNodeIndex == selectedIndex.value_or(-1)) ? ImGuiTreeNodeFlags_Selected : 0)
+		| ((GetId() == selectedIndex.value_or(-1)) ? ImGuiTreeNodeFlags_Selected : 0)
 		| ((childPtrs.size() == 0) ? ImGuiTreeNodeFlags_Leaf : 0);
-	// render this nodeAdd commentMore actions
+	// render this node
 	const auto expanded = ImGui::TreeNodeEx(
-		(void*)(intptr_t)currentNodeIndex, node_flags, name.c_str()
+		(void*)(intptr_t)GetId(), node_flags, name.c_str()
 	);
 	// processing for selecting node
 	if (ImGui::IsItemClicked())
 	{
-		selectedIndex = currentNodeIndex;
+		selectedIndex = GetId();
 		pSelectedNode = const_cast<Node*>(this);
 	}
 	// recursive rendering of open node's children
 	if (expanded)
 	{
-		
 		for (const auto& pChild : childPtrs)
 		{
-			pChild->ShowTree(nodeIndexTracked, selectedIndex, pSelectedNode);
+			pChild->ShowTree(selectedIndex, pSelectedNode);
 		}
 		ImGui::TreePop();
 	}
@@ -129,6 +129,11 @@ void Node::ShowTree(int& nodeIndexTracked, std::optional<int>& selectedIndex, No
 void Node::SetAppliedTransform(DirectX::FXMMATRIX transform) noexcept
 {
 	dx::XMStoreFloat4x4(&appliedTransform, transform);
+}
+
+int Node::GetId() const noexcept
+{
+	return id;
 }
 
 // Model
@@ -144,7 +149,7 @@ public:
 		if (ImGui::Begin(windowName))
 		{
 			ImGui::Columns(2, nullptr, true);
-			root.ShowTree(nodeIndexTracker, selectedIndex, pSelectedNode);
+			root.ShowTree(selectedIndex, pSelectedNode);
 
 			ImGui::NextColumn();
 			if (pSelectedNode != nullptr)
@@ -210,7 +215,8 @@ pWindow(std::make_unique<ModelWindow>())
 		meshPtrs.push_back(ParseMesh(gfx, *pScene->mMeshes[i]));
 	}
 
-	pRoot = ParseNode(*pScene->mRootNode);
+	int nextId = 0;
+	pRoot = ParseNode(nextId, *pScene->mRootNode);
 }
 
 void Model::Draw(Graphics& gfx) const noxnd
@@ -286,7 +292,7 @@ std::unique_ptr<Mesh> Model::ParseMesh(Graphics& gfx, const aiMesh& mesh)
 	return std::make_unique<Mesh>(gfx, std::move(bindablePtrs));
 }
 
-std::unique_ptr<Node> Model::ParseNode(const aiNode& node) noexcept
+std::unique_ptr<Node> Model::ParseNode(int& nextId, const aiNode& node) noexcept
 {
 	namespace dx = DirectX;
 	const auto transform = dx::XMMatrixTranspose( dx::XMLoadFloat4x4(
@@ -301,10 +307,10 @@ std::unique_ptr<Node> Model::ParseNode(const aiNode& node) noexcept
 		curMeshPtrs.push_back( meshPtrs.at( meshIdx ).get() );
 	}
 
-	auto pNode = std::make_unique<Node>(node.mName.C_Str(), std::move(curMeshPtrs), transform);
+	auto pNode = std::make_unique<Node>(nextId++, node.mName.C_Str(), std::move(curMeshPtrs), transform);
 	for( size_t i = 0; i < node.mNumChildren; i++ )
 	{
-		pNode->AddChild(ParseNode(*node.mChildren[i]));
+		pNode->AddChild(ParseNode(nextId, *node.mChildren[i]));
 	}
 
 	return pNode;
