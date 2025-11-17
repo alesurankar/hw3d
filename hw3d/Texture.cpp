@@ -14,7 +14,7 @@ namespace Bind
 	{
 		INFOMAN(gfx);
 
-		// load surfaceAdd commentMore actions
+		// load surface
 		const auto s = Surface::FromFile(path);
 
 		// create texture resource

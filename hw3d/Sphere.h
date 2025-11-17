@@ -33,7 +33,7 @@ public:
 					latBase,
 					dx::XMMatrixRotationZ(longitudeAngle * iLong)
 				);
-				dx::XMStoreFloat3(&calculatedPos, v); 
+				dx::XMStoreFloat3(&calculatedPos, v);
 				vb.EmplaceBack(calculatedPos);
 			}
 		}
@@ -102,10 +102,10 @@ public:
 	static IndexedTriangleList Make(std::optional<Dvtx::VertexLayout> layout = std::nullopt)
 	{
 		using Element = Dvtx::VertexLayout::ElementType;
-			if (!layout)
-			{
-				layout = Dvtx::VertexLayout{}.Append(Element::Position3D);
-			}
+		if (!layout)
+		{
+			layout = Dvtx::VertexLayout{}.Append(Element::Position3D);
+		}
 		return MakeTesselated(std::move(*layout), 12, 24);
 	}
 };

@@ -34,7 +34,7 @@ const std::string& ModelException::GetNote() const noexcept
 // Mesh
 Mesh::Mesh(Graphics& gfx, std::vector<std::shared_ptr<Bind::Bindable>> bindPtrs)
 {
-	AddBind(std::make_shared<Bind::Topology>(gfx, D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST));
+	AddBind(Bind::Topology::Resolve(gfx, D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST));
 
 	for( auto& pb : bindPtrs )
 	{
@@ -96,7 +96,7 @@ void Node::ShowTree( Node*& pSelectedNode ) const noexcept
 		| ((GetId() == selectedId) ? ImGuiTreeNodeFlags_Selected : 0)
 		| ((childPtrs.size() == 0) ? ImGuiTreeNodeFlags_Leaf : 0);
 	// render this node
-	const auto expanded = ImGui::TreeNodeEx( 
+	const auto expanded = ImGui::TreeNodeEx(
 		(void*)(intptr_t)GetId(),node_flags,name.c_str()
 	);
 	// processing for selecting node
@@ -161,7 +161,7 @@ public:
 	{
 		assert( pSelectedNode != nullptr );
 		const auto& transform = transforms.at( pSelectedNode->GetId() );
-		return 
+		return
 			dx::XMMatrixRotationRollPitchYaw( transform.roll,transform.pitch,transform.yaw ) *
 			dx::XMMatrixTranslation( transform.x,transform.y,transform.z );
 	}
