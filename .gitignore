@@ -78,6 +78,7 @@ StyleCopReport.xml
 *.obj
 !hw3d/Models/**/*.obj
 !hw3d/assimp/bin/*
+*.cso
 *.iobj
 *.pch
 *.pdb
@@ -363,3 +364,5 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
+*.cso
