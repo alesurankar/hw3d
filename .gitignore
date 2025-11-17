@@ -79,7 +79,7 @@ StyleCopReport.xml
 !hw3d/Models/**/*.obj
 !hw3d/assimp/bin/*
 hw3d/**/*.cso
-*.ini
+hw3d/**/*.ini
 *.iobj
 *.pch
 *.pdb
