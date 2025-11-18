@@ -53,13 +53,14 @@ private:
 class Model
 {
 public:
-	Model( Graphics& gfx,const std::string fileName );
-	void Draw( Graphics& gfx ) const noxnd;
-	void ShowWindow( const char* windowName = nullptr ) noexcept;
+	Model(Graphics& gfx, const std::string fileName);
+	void Draw(Graphics& gfx) const noxnd;
+	void ShowWindow(const char* windowName = nullptr) noexcept;
+	void SetRootTransform(DirectX::FXMMATRIX tf) noexcept;
 	~Model() noexcept;
 private:
 	static std::unique_ptr<Mesh> ParseMesh(Graphics& gfx, const aiMesh& mesh, const aiMaterial* const* pMaterials);
-	std::unique_ptr<Node> ParseNode( int& nextId,const aiNode& node ) noexcept;
+	std::unique_ptr<Node> ParseNode(int& nextId, const aiNode& node) noexcept;
 private:
 	std::unique_ptr<Node> pRoot;
 	std::vector<std::unique_ptr<Mesh>> meshPtrs;
