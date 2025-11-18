@@ -367,3 +367,7 @@ MigrationBackup/
 FodyWeavers.xsd
 /hw3d/imgui.ini
 /hw3d/imgui.ini
+/hw3d/SolidVS.cso
+/hw3d/PhongVS.cso
+/hw3d/SolidPS.cso
+/hw3d/PhongPS.cso
