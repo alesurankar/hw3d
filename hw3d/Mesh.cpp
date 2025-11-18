@@ -511,18 +511,18 @@ std::unique_ptr<Mesh> Model::ParseMesh(Graphics& gfx, const aiMesh& mesh, const 
 
 		Node::PSMaterialConstantNotex pmc;
 		pmc.specularPower = shininess;
-		pmc.specularIntensity = (specularColor.x + specularColor.y + specularColor.z) / 3.0f;
+		pmc.specularColor = specularColor;
 		pmc.materialColor = diffuseColor;
 		// this is CLEARLY an issue... all meshes will share same mat const, but may have different
 		// Ns (specular power) specified for each in the material properties... bad conflict
 		bindablePtrs.push_back(PixelConstantBuffer<Node::PSMaterialConstantNotex>::Resolve(gfx, pmc, 1u));
-		}
+	}
 	else
 	{
 		throw std::runtime_error("terrible combination of textures in material smh");
-		}
+	}
 
-		return std::make_unique<Mesh>(gfx, std::move(bindablePtrs));
+	return std::make_unique<Mesh>(gfx, std::move(bindablePtrs));
 }
 
 std::unique_ptr<Node> Model::ParseNode(int& nextId, const aiNode& node) noexcept
