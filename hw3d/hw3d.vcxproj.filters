@@ -46,6 +46,9 @@
     <Filter Include="Dxerr">
       <UniqueIdentifier>{7886b8d4-dc25-463a-8236-0cb443791c35}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Geometry">
+      <UniqueIdentifier>{1e55db0a-824b-455a-8ee1-c3a74c5b697e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Drawable.cpp">
@@ -160,10 +163,10 @@
       <Filter>Source Files\Bindable</Filter>
     </ClCompile>
     <ClCompile Include="TransformCbufDoubleboi.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Bindable</Filter>
     </ClCompile>
     <ClCompile Include="TestCube.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Drawable</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -202,9 +205,6 @@
     </ClInclude>
     <ClInclude Include="PixelShader.h">
       <Filter>Header Files\Bindable</Filter>
-    </ClInclude>
-    <ClInclude Include="IndexedTriangleList.h">
-      <Filter>Header Files\Drawable</Filter>
     </ClInclude>
     <ClInclude Include="VertexShader.h">
       <Filter>Header Files\Bindable</Filter>
@@ -281,19 +281,10 @@
     <ClInclude Include="SolidSphere.h">
       <Filter>Header Files\Drawable</Filter>
     </ClInclude>
-    <ClInclude Include="Sphere.h">
-      <Filter>Header Files\Drawable</Filter>
-    </ClInclude>
     <ClInclude Include="Vertex.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ConditionalNoexcept.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Mesh.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Plane.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Color.h">
@@ -321,13 +312,25 @@
       <Filter>Header Files\Bindable</Filter>
     </ClInclude>
     <ClInclude Include="TransformCbufDoubleboi.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Cube.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Bindable</Filter>
     </ClInclude>
     <ClInclude Include="TestCube.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Drawable</Filter>
+    </ClInclude>
+    <ClInclude Include="Cube.h">
+      <Filter>Header Files\Geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="IndexedTriangleList.h">
+      <Filter>Header Files\Geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="Plane.h">
+      <Filter>Header Files\Geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="Sphere.h">
+      <Filter>Header Files\Geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="ConditionalNoexcept.h">
+      <Filter>Header Files\Macros</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -341,13 +344,13 @@
     </Image>
   </ItemGroup>
   <ItemGroup>
-    <None Include="DXTrace.inl">
-      <Filter>Header Files\Framework</Filter>
-    </None>
     <None Include="DXGetErrorDescription.inl">
       <Filter>Dxerr</Filter>
     </None>
     <None Include="DXGetErrorString.inl">
+      <Filter>Dxerr</Filter>
+    </None>
+    <None Include="DXTrace.inl">
       <Filter>Dxerr</Filter>
     </None>
   </ItemGroup>
@@ -364,10 +367,13 @@
     <FxCompile Include="SolidVS.hlsl">
       <Filter>Shader</Filter>
     </FxCompile>
-    <FxCompile Include="PhongPSSpecMap.hlsl">
+    <FxCompile Include="PhongPSSpecNormalMap.hlsl">
       <Filter>Shader</Filter>
     </FxCompile>
     <FxCompile Include="PhongPSNormalMap.hlsl">
+      <Filter>Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="PhongVSNormalMap.hlsl">
       <Filter>Shader</Filter>
     </FxCompile>
   </ItemGroup>
