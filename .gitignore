@@ -80,6 +80,7 @@ StyleCopReport.xml
 !hw3d/assimp/bin/*
 hw3d/**/*.cso
 hw3d/**/*.ini
+
 *.iobj
 *.pch
 *.pdb
@@ -371,3 +372,11 @@ FodyWeavers.xsd
 /hw3d/PhongVS.cso
 /hw3d/SolidPS.cso
 /hw3d/PhongPS.cso
+!hw3d/dxtex/
+!hw3d/dxtex/bin/
+!hw3d/dxtex/bin/Debug/
+!hw3d/dxtex/bin/Release/
+!hw3d/dxtex/bin/Debug/DirectXTex.lib
+!hw3d/dxtex/bin/Debug/DirectXTex.pdb
+!hw3d/dxtex/bin/Release/DirectXTex.lib
+!hw3d/dxtex/bin/Release/DirectXTex.pdb
