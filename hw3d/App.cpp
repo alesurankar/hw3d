@@ -9,6 +9,7 @@
 #include <shellapi.h>
 #include <dxtex/DirectXTex.h>
 #include "MyUtil.h"
+#include "DynamicConstant.h"
 
 namespace dx = DirectX;
 
@@ -19,6 +20,12 @@ App::App(const std::string& commandLine)
 	scriptCommander(TokenizeQuoted(commandLine)),
 	light(wnd.Gfx())
 {
+	Dcb::Struct s(0);
+	s.Add<Dcb::Struct>("butts");
+	static_cast<Dcb::Struct&>(s["butts"]).Add<Dcb::Float3>("pubes");
+	Dcb::Buffer b(s);
+	b["butts"]["pubes"] = DirectX::XMFLOAT3{ 69.0f,0.0f,0.0f };
+	dx::XMFLOAT3 v = b["butts"]["pubes"];
 	//wall.SetRootTransform( dx::XMMatrixTranslation( -12.0f,0.0f,0.0f ) );
 	//tp.SetPos( { 12.0f,0.0f,0.0f } );
 	//gobber.SetRootTransform( dx::XMMatrixTranslation( 0.0f,0.0f,-4.0f ) );
