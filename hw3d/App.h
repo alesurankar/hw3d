@@ -7,6 +7,7 @@
 #include "TestPlane.h"
 #include <set>
 #include "Mesh.h"
+#include "ScriptCommander.h"
 
 class App
 {
@@ -22,7 +23,8 @@ private:
 	std::string commandLine;
 	bool showDemoWindow = false;
 	ImguiManager imgui;
-	Window wnd;
+	Window wnd; 
+	ScriptCommander scriptCommander;
 	MyTimer timer;
 	float speed_factor = 1.0f;
 	Camera cam;
