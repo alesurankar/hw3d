@@ -21,14 +21,14 @@ App::App(const std::string& commandLine)
 	light(wnd.Gfx())
 {
 	Dcb::Struct s(0);
-	s.Add<Dcb::Struct>("butts");
-	s["butts"].AsStruct().Add<Dcb::Float3>("pubes");
-	s["butts"].AsStruct().Add<Dcb::Float>("dank");
+	s.Add<Dcb::Struct>("b");
+	s["b"].Add<Dcb::Float3>("p");
+	s["b"].Add<Dcb::Float>("d");
 	Dcb::Buffer b(s);
-	b["butts"]["pubes"] = DirectX::XMFLOAT3{ 69.0f,0.0f,0.0f };
-	b["butts"]["dank"] = 420.0f;
-	dx::XMFLOAT3 v = b["butts"]["pubes"];
-	float u = b["butts"]["dank"];
+	b["b"]["p"] = DirectX::XMFLOAT3{ 69.0f,0.0f,0.0f };
+	b["b"]["d"] = 420.0f;
+	dx::XMFLOAT3 v = b["b"]["p"];
+	float u = b["b"]["d"];
 	//wall.SetRootTransform( dx::XMMatrixTranslation( -12.0f,0.0f,0.0f ) );
 	//tp.SetPos( { 12.0f,0.0f,0.0f } );
 	//gobber.SetRootTransform( dx::XMMatrixTranslation( 0.0f,0.0f,-4.0f ) );
