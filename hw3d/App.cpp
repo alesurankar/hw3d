@@ -3,7 +3,6 @@
 #include <algorithm>
 #include "MyMath.h"
 #include "Surface.h"
-#include "GDIPlusManager.h"
 #include "imgui/imgui.h"
 #include "VertexBuffer.h"
 #include "TexturePreprocessor.h"
@@ -11,8 +10,6 @@
 #include <dxtex/DirectXTex.h>
 
 namespace dx = DirectX;
-
-GDIPlusManager gdipm;
 
 App::App(const std::string& commandLine)
 	:
@@ -22,11 +19,6 @@ App::App(const std::string& commandLine)
 {
 	auto scratch = DirectX::ScratchImage{};
 	DirectX::LoadFromWICFile(L"Images\\brickwall.jpg", DirectX::WIC_FLAGS_NONE, nullptr, scratch);
-	auto image = scratch.GetImage(0, 0, 0);
-	auto a = image->pixels[0];
-	auto b = image->pixels[1];
-	auto c = image->pixels[2];
-	auto d = image->pixels[3];
 	// makeshift cli for doing some preprocessing bullshit (so many hacks here)
 	if (this->commandLine != "")
 	{
