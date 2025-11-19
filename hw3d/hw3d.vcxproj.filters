@@ -171,6 +171,9 @@
     <ClCompile Include="MyXM.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="TexturePreprocessor.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Drawable.h">
@@ -335,7 +338,7 @@
     <ClInclude Include="ConditionalNoexcept.h">
       <Filter>Header Files\Macros</Filter>
     </ClInclude>
-    <ClInclude Include="NormalMapTwerker.h">
+    <ClInclude Include="TexturePreprocessor.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="MyXM.h">
