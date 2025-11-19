@@ -126,6 +126,7 @@
     <ClCompile Include="Mouse.cpp" />
     <ClCompile Include="MyException.cpp" />
     <ClCompile Include="MyTimer.cpp" />
+    <ClCompile Include="MyUtil.cpp" />
     <ClCompile Include="MyXM.cpp" />
     <ClCompile Include="PixelShader.cpp" />
     <ClCompile Include="PointLight.cpp" />
@@ -181,6 +182,7 @@
     <ClInclude Include="MyException.h" />
     <ClInclude Include="MyMath.h" />
     <ClInclude Include="MyTimer.h" />
+    <ClInclude Include="MyUtil.h" />
     <ClInclude Include="MyWin.h" />
     <ClInclude Include="MyXM.h" />
     <ClInclude Include="Rasterizer.h" />
