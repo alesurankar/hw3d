@@ -152,6 +152,8 @@ void App::DoFrame()
 	//tp.SpawnControlWindow( wnd.Gfx() );
 	//nano.ShowWindow( wnd.Gfx(),"Nano" );
 	sponza.ShowWindow(wnd.Gfx(), "Sponza");
+	bluePlane.SpawnControlWindow(wnd.Gfx(), "Blue Plane");
+	redPlane.SpawnControlWindow(wnd.Gfx(), "Red Plane");
 
 	// present
 	wnd.Gfx().EndFrame();
