@@ -12,6 +12,7 @@ namespace Bind
 		layout(std::move(layout_in))
 	{
 		INFOMAN(gfx);
+
 		const auto d3dLayout = layout.GetD3DLayout();
 
 		GFX_THROW_INFO(GetDevice(gfx)->CreateInputLayout(
@@ -20,6 +21,10 @@ namespace Bind
 			pVertexShaderBytecode->GetBufferSize(),
 			&pInputLayout
 		));
+	}
+	const Dvtx::VertexLayout InputLayout::GetLayout() const noexcept
+	{
+		return layout;
 	}
 
 	void InputLayout::Bind(Graphics& gfx) noexcept
