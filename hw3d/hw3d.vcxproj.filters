@@ -419,6 +419,9 @@
     <ClInclude Include="FrameCommander.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="PerfLog.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="hw3d.rc">
@@ -477,5 +480,9 @@
       <Filter>Shader</Filter>
     </FxCompile>
     <FxCompile Include="PhongPSSpecNormMask.hlsl" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="perf.txt" />
+    <Text Include="perf_twitch.txt" />
   </ItemGroup>
 </Project>

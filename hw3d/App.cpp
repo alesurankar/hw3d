@@ -7,6 +7,7 @@
 #include "VertexBuffer.h"
 #include "MyUtil.h"
 #include "Testing.h"
+#include "PerfLog.h"
 
 namespace dx = DirectX;
 
