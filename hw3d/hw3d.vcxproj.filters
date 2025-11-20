@@ -49,6 +49,12 @@
     <Filter Include="Header Files\Geometry">
       <UniqueIdentifier>{1e55db0a-824b-455a-8ee1-c3a74c5b697e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Shader\PS">
+      <UniqueIdentifier>{c2e36898-cbcc-456c-91d5-8a31d5a4b77c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shader\VS">
+      <UniqueIdentifier>{6cc349b8-d9a3-4563-9e5b-d4799f3df63c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Drawable.cpp">
@@ -453,42 +459,54 @@
       <Filter>Dxerr</Filter>
     </None>
     <None Include="process.json" />
+    <None Include="HLSL.props" />
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="PhongPS.hlsl">
+    <FxCompile Include="xPhongDifNro.hlsl">
       <Filter>Shader</Filter>
     </FxCompile>
-    <FxCompile Include="PhongVS.hlsl">
-      <Filter>Shader</Filter>
+    <FxCompile Include="PhongDif_PS.hlsl">
+      <Filter>Shader\PS</Filter>
     </FxCompile>
-    <FxCompile Include="SolidPS.hlsl">
-      <Filter>Shader</Filter>
+    <FxCompile Include="PhongDifMskSpcNrm_PS.hlsl">
+      <Filter>Shader\PS</Filter>
     </FxCompile>
-    <FxCompile Include="SolidVS.hlsl">
-      <Filter>Shader</Filter>
+    <FxCompile Include="PhongDifNrm_PS.hlsl">
+      <Filter>Shader\PS</Filter>
     </FxCompile>
-    <FxCompile Include="PhongPSSpecNormalMap.hlsl">
-      <Filter>Shader</Filter>
+    <FxCompile Include="Phong_PS.hlsl">
+      <Filter>Shader\PS</Filter>
     </FxCompile>
-    <FxCompile Include="PhongDifNrmPS.hlsl">
-      <Filter>Shader</Filter>
+    <FxCompile Include="PhongDifSpc_PS.hlsl">
+      <Filter>Shader\PS</Filter>
     </FxCompile>
-    <FxCompile Include="PhongDifNrmVS.hlsl">
-      <Filter>Shader</Filter>
+    <FxCompile Include="PhongDifSpcNrm_PS.hlsl">
+      <Filter>Shader\PS</Filter>
     </FxCompile>
-    <FxCompile Include="PhongPSNormalMapObject.hlsl">
-      <Filter>Shader</Filter>
+    <FxCompile Include="Solid_PS.hlsl">
+      <Filter>Shader\PS</Filter>
     </FxCompile>
-    <FxCompile Include="PhongPSNotex.hlsl">
-      <Filter>Shader</Filter>
+    <FxCompile Include="PhongDifMskSpcNrm_VS.hlsl">
+      <Filter>Shader\VS</Filter>
     </FxCompile>
-    <FxCompile Include="PhongVSNotex.hlsl">
-      <Filter>Shader</Filter>
+    <FxCompile Include="PhongDifSpc_VS.hlsl">
+      <Filter>Shader\VS</Filter>
     </FxCompile>
-    <FxCompile Include="PhongPSSpec.hlsl">
-      <Filter>Shader</Filter>
+    <FxCompile Include="PhongDifSpcNrm_VS.hlsl">
+      <Filter>Shader\VS</Filter>
     </FxCompile>
-    <FxCompile Include="PhongPSSpecNormMask.hlsl" />
+    <FxCompile Include="PhongDif_VS.hlsl">
+      <Filter>Shader\VS</Filter>
+    </FxCompile>
+    <FxCompile Include="PhongDifNrm_VS.hlsl">
+      <Filter>Shader\VS</Filter>
+    </FxCompile>
+    <FxCompile Include="Phong_VS.hlsl">
+      <Filter>Shader\VS</Filter>
+    </FxCompile>
+    <FxCompile Include="Solid_VS.hlsl">
+      <Filter>Shader\VS</Filter>
+    </FxCompile>
   </ItemGroup>
   <ItemGroup>
     <Text Include="perf.txt" />
