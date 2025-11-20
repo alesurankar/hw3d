@@ -204,6 +204,9 @@
     <ClCompile Include="Job.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Material.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Drawable.h">
@@ -467,10 +470,10 @@
     <FxCompile Include="PhongPSSpecNormalMap.hlsl">
       <Filter>Shader</Filter>
     </FxCompile>
-    <FxCompile Include="PhongPSNormalMap.hlsl">
+    <FxCompile Include="PhongDifNrmPS.hlsl">
       <Filter>Shader</Filter>
     </FxCompile>
-    <FxCompile Include="PhongVSNormalMap.hlsl">
+    <FxCompile Include="PhongDifNrmVS.hlsl">
       <Filter>Shader</Filter>
     </FxCompile>
     <FxCompile Include="PhongPSNormalMapObject.hlsl">

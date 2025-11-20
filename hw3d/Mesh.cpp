@@ -40,6 +40,10 @@ const std::string& ModelException::GetNote() const noexcept
 
 
 // Mesh
+Mesh::Mesh(Graphics& gfx, const Material& mat, const aiMesh& mesh) noxnd
+	:
+Drawable(gfx, mat, mesh)
+{}
 void Mesh::Submit(FrameCommander& frame, dx::FXMMATRIX accumulatedTranform) const noxnd
 {
 	dx::XMStoreFloat4x4(&transform, accumulatedTranform);
@@ -366,6 +370,7 @@ Model::~Model() noexcept
 
 std::unique_ptr<Mesh> Model::ParseMesh(Graphics& gfx, const aiMesh& mesh, const aiMaterial* const* pMaterials, const std::filesystem::path& path, float scale)
 {
+	return {};
 	//using namespace std::string_literals;
 	//using Dvtx::VertexLayout;
 	//using namespace Bind;
@@ -724,7 +729,7 @@ std::unique_ptr<Mesh> Model::ParseMesh(Graphics& gfx, const aiMesh& mesh, const 
 	//bindablePtrs.push_back( std::make_shared<Stencil>( gfx,Stencil::Mode::Off ) );
 
 	//return std::make_unique<Mesh>( gfx,std::move( bindablePtrs ) );
-	return {};
+	//return {};
 }
 
 std::unique_ptr<Node> Model::ParseNode(int& nextId, const aiNode& node) noexcept
