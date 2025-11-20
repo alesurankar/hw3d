@@ -39,6 +39,12 @@ eltype::SystemType& operator=( const eltype::SystemType& rhs ) noxnd \
 	return static_cast<eltype::SystemType&>(*this) = rhs; \
 }
 
+#define PTR_CONVERSION(eltype) \
+operator eltype::SystemType*() noxnd \
+{ \
+	return &static_cast<eltype::SystemType&>(ref); \
+}
+
 
 namespace Dcb
 {
@@ -52,6 +58,9 @@ namespace Dcb
 		LayoutElement(size_t offset)
 			:
 			offset(offset)
+		{
+		}
+		virtual ~LayoutElement()
 		{
 		}
 
@@ -174,6 +183,26 @@ namespace Dcb
 	class ElementRef
 	{
 	public:
+		class ElementPtr
+		{
+		public:
+			//ElementPtr( const ElementPtr& ) = delete;
+			ElementPtr(ElementRef& ref)
+				:
+				ref(ref)
+			{
+			}
+
+			PTR_CONVERSION(Matrix)
+				PTR_CONVERSION(Float4)
+				PTR_CONVERSION(Float3)
+				PTR_CONVERSION(Float2)
+				PTR_CONVERSION(Float)
+				PTR_CONVERSION(Bool)
+		private:
+			ElementRef& ref;
+		};
+	public:
 		ElementRef(const LayoutElement* pLayout, char* pBytes, size_t offset)
 			:
 			offset(offset),
@@ -189,6 +218,10 @@ namespace Dcb
 		{
 			const auto& t = pLayout->T();
 			return { &t,pBytes,offset + t.GetSizeInBytes() * index };
+		}
+		ElementPtr operator&() noxnd
+		{
+			return { *this };
 		}
 
 		REF_CONVERSION(Matrix)
