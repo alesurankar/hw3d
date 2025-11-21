@@ -22,10 +22,10 @@ public:
 	~Model() noexcept;
 private:
 	static std::unique_ptr<Mesh> ParseMesh(Graphics& gfx, const aiMesh& mesh, const aiMaterial* const* pMaterials, const std::filesystem::path& path, float scale);
-	std::unique_ptr<Node> ParseNode(int& nextId, const aiNode& node) noexcept;
+	std::unique_ptr<Node> ParseNode(int& nextId, const aiNode& node, DirectX::FXMMATRIX additionalTransform) noexcept;
 private:
 	std::unique_ptr<Node> pRoot;
 	// sharing meshes here perhaps dangerous?
 	std::vector<std::unique_ptr<Mesh>> meshPtrs;
-	//std::unique_ptr<class ModelWindow> pWindow;
+	//std::unique_ptr<ModelWindow> pWindow;
 };

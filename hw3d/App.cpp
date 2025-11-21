@@ -23,23 +23,9 @@ App::App(const std::string& commandLine)
 	scriptCommander(TokenizeQuoted(commandLine)),
 	light(wnd.Gfx())
 {
-	//TestMaterialSystemLoading(wnd.Gfx());
-	cube.SetPos({ 4.0f,0.0f,0.0f });
-	cube2.SetPos({ 0.0f,4.0f,0.0f });
-
-	{
-		std::string path = "Models\\brick_wall\\brick_wall.obj";
-		Assimp::Importer imp;
-		const auto pScene = imp.ReadFile(path,
-			aiProcess_Triangulate |
-			aiProcess_JoinIdenticalVertices |
-			aiProcess_ConvertToLeftHanded |
-			aiProcess_GenNormals |
-			aiProcess_CalcTangentSpace
-		);
-		Material mat{ wnd.Gfx(),*pScene->mMaterials[1],path };
-		pLoaded = std::make_unique<Mesh>(wnd.Gfx(), mat, *pScene->mMeshes[0]);
-	}
+	//TestDynamicConstant();
+	//cube.SetPos( { 4.0f,0.0f,0.0f } );
+	//cube2.SetPos( { 0.0f,4.0f,0.0f } );
 
 	//wall.SetRootTransform( dx::XMMatrixTranslation( -12.0f,0.0f,0.0f ) );
 	//tp.SetPos( { 12.0f,0.0f,0.0f } );
@@ -66,7 +52,6 @@ void App::DoFrame()
 	//sponza.Draw( wnd.Gfx() );
 	//cube.Submit( fc );
 	//cube2.Submit( fc );
-	pLoaded->Submit(fc, DirectX::XMMatrixIdentity());
 	//bluePlane.Draw( wnd.Gfx() );
 	//redPlane.Draw( wnd.Gfx() );
 	fc.Execute(wnd.Gfx());
@@ -189,13 +174,12 @@ void App::DoFrame()
 			return dirty;
 		}
 	} probe;
-	pLoaded->Accept(probe);
 	// imgui windows
 	cam.SpawnControlWindow();
 	light.SpawnControlWindow();
 	ShowImguiDemoWindow();
-	cube.SpawnControlWindow(wnd.Gfx(), "Cube 1");
-	cube2.SpawnControlWindow(wnd.Gfx(), "Cube 2");
+	//cube.SpawnControlWindow( wnd.Gfx(),"Cube 1" );
+	//cube2.SpawnControlWindow( wnd.Gfx(),"Cube 2" );
 	//sponza.ShowWindow( wnd.Gfx(),"Sponza" );
 	//gobber.ShowWindow( wnd.Gfx(),"gobber" );
 	//wall.ShowWindow( wnd.Gfx(),"Wall" );
