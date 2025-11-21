@@ -534,6 +534,9 @@
     <FxCompile Include="Solid_VS.hlsl">
       <Filter>Shader\VS</Filter>
     </FxCompile>
+    <FxCompile Include="Offset_VS.hlsl">
+      <Filter>Shader\VS</Filter>
+    </FxCompile>
   </ItemGroup>
   <ItemGroup>
     <Text Include="perf.txt" />
