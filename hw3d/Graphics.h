@@ -11,6 +11,8 @@
 #include <random>
 #include "ConditionalNoexcept.h"
 
+class DepthStencil;
+
 namespace Bind
 {
 	class Bindable;
@@ -18,7 +20,7 @@ namespace Bind
 
 class Graphics
 {
-	friend Bind::Bindable;
+	friend class GraphicsResource;
 public:
 	class Exception : public MyException
 	{
@@ -63,15 +65,21 @@ public:
 	~Graphics();
 	void EndFrame();
 	void BeginFrame(float red, float green, float blue) noexcept;
+	void BindSwapBuffer() noexcept;
+	void BindSwapBuffer(const DepthStencil& ds) noexcept;
 	void DrawIndexed(UINT count) noxnd;
-	void SetProjection(DirectX::FXMMATRIX proj) noexcept; 
+	void SetProjection(DirectX::FXMMATRIX proj) noexcept;
 	DirectX::XMMATRIX GetProjection() const noexcept;
 	void SetCamera(DirectX::FXMMATRIX cam) noexcept;
 	DirectX::XMMATRIX GetCamera() const noexcept;
 	void EnableImgui() noexcept;
 	void DisableImgui() noexcept;
 	bool IsImguiEnabled() const noexcept;
+	UINT GetWidth() const noexcept;
+	UINT GetHeight() const noexcept;
 private:
+	UINT width;
+	UINT height;
 	DirectX::XMMATRIX projection;
 	DirectX::XMMATRIX camera;
 	bool imguiEnabled = true;
