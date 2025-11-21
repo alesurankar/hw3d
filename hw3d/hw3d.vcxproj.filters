@@ -485,6 +485,9 @@
     <ClInclude Include="RenderTarget.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="BlurPack.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="hw3d.rc">
@@ -566,6 +569,9 @@
       <Filter>Shader\VS</Filter>
     </FxCompile>
     <FxCompile Include="Blur_PS.hlsl">
+      <Filter>Shader\PS</Filter>
+    </FxCompile>
+    <FxCompile Include="BlurOutline_PS.hlsl">
       <Filter>Shader\PS</Filter>
     </FxCompile>
   </ItemGroup>
