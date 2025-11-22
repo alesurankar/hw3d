@@ -7,7 +7,8 @@ Box::Box(Graphics& gfx,
 	std::uniform_real_distribution<float>& adist,
 	std::uniform_real_distribution<float>& ddist,
 	std::uniform_real_distribution<float>& odist,
-	std::uniform_real_distribution<float>& rdist)
+	std::uniform_real_distribution<float>& rdist,
+	float x_in, float y_in, float z_in)
 	:
 	r(rdist(rng)),
 	droll(ddist(rng)),
@@ -18,7 +19,10 @@ Box::Box(Graphics& gfx,
 	dchi(odist(rng)),
 	chi(adist(rng)),
 	theta(adist(rng)),
-	phi(adist(rng))
+	phi(adist(rng)),
+	x(x_in),
+	y(y_in),
+	z(z_in)
 {
 	if (!IsStaticInitialized())
 	{
@@ -110,74 +114,153 @@ void Box::Update(float dt, Keyboard& kbd) noexcept
 	chi += dchi * dt;
 }
 
-void Box::UpdateKbd(Keyboard& kbd)
+void Box::UpdateWorld(Keyboard& kbd)
 {
 	if (kbd.KeyIsPressed('W'))
 	{
-		theta -= 0.01f;
+		z -= 0.15f;
 	}
 	if (kbd.KeyIsPressed('S'))
 	{
-		phi += 0.01f;
+		z += 0.15f;
 	}
 	if (kbd.KeyIsPressed('A'))
 	{
-		chi += 0.01f;
-	}
-	if (kbd.KeyIsPressed('Q'))
-	{
-		roll -= 0.1f;
-	}
-	if (kbd.KeyIsPressed('E'))
-	{
-		pitch += 0.1f;
-	}
-	if (kbd.KeyIsPressed('R'))
-	{
-		yaw += 0.1f;
+		x += 0.15f;
 	}
 	if (kbd.KeyIsPressed('D'))
 	{
-		r -= 0.1f;
+		x -= 0.15f;
 	}
-	if (kbd.KeyIsPressed('H'))
+	if (kbd.KeyIsPressed('Q'))
 	{
-		x += 0.1f;
-	}
-	if (kbd.KeyIsPressed('J'))
-	{
-		u += 0.1f;
-	}
-	if (kbd.KeyIsPressed('K'))
-	{
-		i -= 0.1f;
-	}
-	if (kbd.KeyIsPressed('B'))
-	{
-		x -= 0.1f;
-	}
-	if (kbd.KeyIsPressed('N'))
-	{
-		u -= 0.1f;
-	}
-	if (kbd.KeyIsPressed('M'))
-	{
-		i += 0.1f;
+		x -= 0.15f;
 	}
 	if (kbd.KeyIsPressed(VK_SHIFT))
 	{
-		y += 0.1f;
+		y += 0.15f;
 	}
 	if (kbd.KeyIsPressed(VK_SPACE))
 	{
-		z -= 0.1f;
+		y -= 0.15f;
+	}
+	if (kbd.KeyIsPressed('P'))
+	{
+		roll -= 0.15f;
+	}
+	if (kbd.KeyIsPressed('O'))
+	{
+		theta -= 0.15f;
+	}
+	if (kbd.KeyIsPressed('I'))
+	{
+		phi -= 0.15f;
+	}
+	if (kbd.KeyIsPressed('U'))
+	{
+		chi -= 0.15f;
+	}
+	if (kbd.KeyIsPressed('Z'))
+	{
+		i -= 0.15f;
+	}
+	if (kbd.KeyIsPressed('T'))
+	{
+		pitch -= 0.15f;
+	}
+	if (kbd.KeyIsPressed('R'))
+	{
+		yaw -= 0.15f;
+	}
+	if (kbd.KeyIsPressed('E'))
+	{
+		r -= 0.15f;
 	}
 }
 
 DirectX::XMMATRIX Box::GetTransformXM() const noexcept
 {
 	return DirectX::XMMatrixRotationRollPitchYaw(pitch, yaw, roll) *
-		DirectX::XMMatrixTranslation(r, y, z) *
+		DirectX::XMMatrixTranslation(r, i, u) *
 		DirectX::XMMatrixRotationRollPitchYaw(theta, phi, chi) *
-		DirectX::XMMatrixTranslation(x, u, i);
+		DirectX::XMMatrixTranslation(x, y, z);
+}
+
+void Box::UpdatePlayer(Keyboard& kbd)
+{
+	if (kbd.KeyIsPressed('W') && !kbd.KeyIsPressed('S')) {
+		if (u <= 0.2f)
+			u += 0.005f;
+	}
+	else if (!kbd.KeyIsPressed('W') && kbd.KeyIsPressed('S')) {
+		if (u >= -0.2f)
+			u -= 0.005f;
+	}
+	else if (!kbd.KeyIsPressed('W') && !kbd.KeyIsPressed('S')) {
+		if (u > 0.0f)
+			u -= 0.005f;
+		if (u < 0.0f)
+			u += 0.005f;
+	}
+
+	if (kbd.KeyIsPressed('D') && !kbd.KeyIsPressed('A')) {
+		if (yaw <= 0.2f)
+			yaw += 0.01f;
+	}
+	else if (!kbd.KeyIsPressed('D') && kbd.KeyIsPressed('A')) {
+		if (yaw >= -0.2f)
+			yaw -= 0.01f;
+	}
+	else if (!kbd.KeyIsPressed('D') && !kbd.KeyIsPressed('A')) {
+		if (yaw > 0.0f)
+			yaw -= 0.01f;
+		if (yaw < 0.0f)
+			yaw += 0.01f;
+	}
+
+	if (kbd.KeyIsPressed(VK_SHIFT) && !kbd.KeyIsPressed(VK_SPACE)) {
+		if (pitch <= 0.2f)
+			pitch += 0.01f;
+	}
+	else if (!kbd.KeyIsPressed(VK_SHIFT) && kbd.KeyIsPressed(VK_SPACE)) {
+		if (pitch >= -0.2f)
+			pitch -= 0.01f;
+	}
+	else if (!kbd.KeyIsPressed(VK_SHIFT) && !kbd.KeyIsPressed(VK_SPACE)) {
+		if (pitch > 0.0f)
+			pitch -= 0.01f;
+		if (pitch < 0.0f)
+			pitch += 0.01f;
+	}
+
+
+
+	/*if (kbd.KeyIsPressed('D')) {
+		if (pitch <= 0.2f)
+			pitch += 0.01f;
+	}
+	else {
+		if (pitch > 0.0f)
+			pitch -= 0.01f;
+	}
+	if (kbd.KeyIsPressed('A')) {
+		if (pitch <= 0.2f)
+			pitch += 0.01f;
+	}
+	else {
+		if (pitch > 0.0f)
+			pitch -= 0.01f;
+	}
+	if (kbd.KeyIsPressed('S'))
+	{
+		dpitch -= 0.01f;
+	}
+	if (kbd.KeyIsPressed('D'))
+	{
+		dyaw += 0.01f;
+	}
+	if (kbd.KeyIsPressed('A'))
+	{
+		dyaw -= 0.01f;
+	}*/
 }

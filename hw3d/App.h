@@ -15,6 +15,7 @@ private:
 private:
 	Window wnd;
 	MyTimer timer;
-	std::vector<std::unique_ptr<class Box>> boxes;
+	std::vector<std::unique_ptr<class Box>> boxes1;
+	std::vector<std::unique_ptr<class Box>> boxes2;
 	std::unique_ptr<class Box> box;
 };

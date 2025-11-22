@@ -8,9 +8,11 @@ public:
 		std::uniform_real_distribution<float>& adist,
 		std::uniform_real_distribution<float>& ddist,
 		std::uniform_real_distribution<float>& odist,
-		std::uniform_real_distribution<float>& rdist);
+		std::uniform_real_distribution<float>& rdist,
+		float x_in = 0.0f, float y_in = 0.0f, float z_in = 0.0f);
 	void Update(float dt, Keyboard& kbd) noexcept override;
-	void UpdateKbd(Keyboard& kbd);
+	void UpdateWorld(Keyboard& kbd);
+	void UpdatePlayer(Keyboard& kbd);
 	DirectX::XMMATRIX GetTransformXM() const noexcept override;
 private:
 	// positional
@@ -21,9 +23,9 @@ private:
 	float theta;
 	float phi;
 	float chi;
-	float y = 0.0f;
-	float z = 0.0f;
-	float x = 0.0f;
+	float y;
+	float z;
+	float x;
 	float u = 0.0f;
 	float i = 20.0f;
 	// speed (delta/s)
