@@ -1,6 +1,7 @@
 #pragma once
 #include "Graphics.h"
 #include <DirectXMath.h>
+#include "Keyboard.h"
 
 class Bindable;
 
@@ -13,7 +14,7 @@ public:
 	Drawable(const Drawable&) = delete;
 	virtual DirectX::XMMATRIX GetTransformXM() const noexcept = 0;
 	void Draw(Graphics& gfx) const noexcept(!_DEBUG);
-	virtual void Update(float dt) noexcept = 0;
+	virtual void Update(float dt, Keyboard& kbd) noexcept = 0;
 	virtual ~Drawable() = default;
 protected:
 	void AddBind(std::unique_ptr<Bindable> bind) noexcept(!_DEBUG);

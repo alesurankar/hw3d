@@ -9,7 +9,7 @@ public:
 		std::uniform_real_distribution<float>& ddist,
 		std::uniform_real_distribution<float>& odist,
 		std::uniform_real_distribution<float>& rdist);
-	void Update(float dt) noexcept override;
+	void Update(float dt, Keyboard& kbd) noexcept override;
 	DirectX::XMMATRIX GetTransformXM() const noexcept override;
 private:
 	// positional
@@ -20,6 +20,11 @@ private:
 	float theta;
 	float phi;
 	float chi;
+	float y = 0.0f;
+	float z = 0.0f;
+	float x = 0.0f;
+	float u = 0.0f;
+	float i = 20.0f;
 	// speed (delta/s)
 	float droll;
 	float dpitch;
