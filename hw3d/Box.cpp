@@ -93,8 +93,69 @@ Box::Box(Graphics& gfx,
 	AddBind(std::make_unique<TransformCbuf>(gfx, *this));
 }
 
-void Box::Update(float dt) noexcept
+void Box::Update(float dt, Keyboard& kbd) noexcept
 {
+	if (kbd.KeyIsPressed('W'))
+	{
+		theta -= 0.01f;
+	}
+	if (kbd.KeyIsPressed('S'))
+	{
+		phi += 0.01f;
+	}
+	if (kbd.KeyIsPressed('A'))
+	{
+		chi += 0.01f;
+	}
+	if (kbd.KeyIsPressed('Q'))
+	{
+		roll -= 0.1f;
+	}
+	if (kbd.KeyIsPressed('E'))
+	{
+		pitch += 0.1f;
+	}
+	if (kbd.KeyIsPressed('R'))
+	{
+		yaw += 0.1f;
+	}
+	if (kbd.KeyIsPressed('D'))
+	{
+		r -= 0.1f;
+	}
+	if (kbd.KeyIsPressed('H'))
+	{
+		x += 0.1f;
+	}
+	if (kbd.KeyIsPressed('J'))
+	{
+		u += 0.1f;
+	}
+	if (kbd.KeyIsPressed('K'))
+	{
+		i -= 0.1f;
+	}
+	if (kbd.KeyIsPressed('B'))
+	{
+		x -= 0.1f;
+	}
+	if (kbd.KeyIsPressed('N'))
+	{
+		u -= 0.1f;
+	}
+	if (kbd.KeyIsPressed('M'))
+	{
+		i += 0.1f;
+	}
+	if (kbd.KeyIsPressed(VK_SHIFT))
+	{
+		y += 0.1f;
+	}
+	if (kbd.KeyIsPressed(VK_SPACE))
+	{
+		z -= 0.1f;
+	}
+	
 	roll += droll * dt;
 	pitch += dpitch * dt;
 	yaw += dyaw * dt;
@@ -106,7 +167,7 @@ void Box::Update(float dt) noexcept
 DirectX::XMMATRIX Box::GetTransformXM() const noexcept
 {
 	return DirectX::XMMatrixRotationRollPitchYaw(pitch, yaw, roll) *
-		DirectX::XMMatrixTranslation(r, 0.0f, 0.0f) *
+		DirectX::XMMatrixTranslation(r, y, z) *
 		DirectX::XMMatrixRotationRollPitchYaw(theta, phi, chi) *
-		DirectX::XMMatrixTranslation(0.0f, 0.0f, 20.0f);
+		DirectX::XMMatrixTranslation(x, u, i);
 }
