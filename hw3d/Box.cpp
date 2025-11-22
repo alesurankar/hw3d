@@ -102,6 +102,16 @@ Box::Box(Graphics& gfx,
 
 void Box::Update(float dt, Keyboard& kbd) noexcept
 {
+	roll += droll * dt;
+	pitch += dpitch * dt;
+	yaw += dyaw * dt;
+	theta += dtheta * dt;
+	phi += dphi * dt;
+	chi += dchi * dt;
+}
+
+void Box::UpdateKbd(Keyboard& kbd)
+{
 	if (kbd.KeyIsPressed('W'))
 	{
 		theta -= 0.01f;
@@ -162,13 +172,6 @@ void Box::Update(float dt, Keyboard& kbd) noexcept
 	{
 		z -= 0.1f;
 	}
-
-	roll += droll * dt;
-	pitch += dpitch * dt;
-	yaw += dyaw * dt;
-	theta += dtheta * dt;
-	phi += dphi * dt;
-	chi += dchi * dt;
 }
 
 DirectX::XMMATRIX Box::GetTransformXM() const noexcept

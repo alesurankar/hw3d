@@ -10,6 +10,7 @@ public:
 		std::uniform_real_distribution<float>& odist,
 		std::uniform_real_distribution<float>& rdist);
 	void Update(float dt, Keyboard& kbd) noexcept override;
+	void UpdateKbd(Keyboard& kbd);
 	DirectX::XMMATRIX GetTransformXM() const noexcept override;
 private:
 	// positional
