@@ -132,10 +132,6 @@ void Box::UpdateWorld(Keyboard& kbd)
 	{
 		x -= 0.15f;
 	}
-	if (kbd.KeyIsPressed('Q'))
-	{
-		x -= 0.15f;
-	}
 	if (kbd.KeyIsPressed(VK_SHIFT))
 	{
 		y += 0.15f;
@@ -150,15 +146,15 @@ void Box::UpdateWorld(Keyboard& kbd)
 	}
 	if (kbd.KeyIsPressed('O'))
 	{
-		theta -= 0.15f;
+		theta -= 0.015f;
 	}
 	if (kbd.KeyIsPressed('I'))
 	{
-		phi -= 0.15f;
+		phi -= 0.015f;
 	}
 	if (kbd.KeyIsPressed('U'))
 	{
-		chi -= 0.15f;
+		chi -= 0.015f;
 	}
 	if (kbd.KeyIsPressed('Z'))
 	{
@@ -172,10 +168,10 @@ void Box::UpdateWorld(Keyboard& kbd)
 	{
 		yaw -= 0.15f;
 	}
-	if (kbd.KeyIsPressed('E'))
+	/*if (kbd.KeyIsPressed('E'))
 	{
 		r -= 0.15f;
-	}
+	}*/
 }
 
 DirectX::XMMATRIX Box::GetTransformXM() const noexcept

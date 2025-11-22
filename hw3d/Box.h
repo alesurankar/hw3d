@@ -16,7 +16,7 @@ public:
 	DirectX::XMMATRIX GetTransformXM() const noexcept override;
 private:
 	// positional
-	float r;
+	float r = 0.0f;
 	float roll = 0.0f;
 	float pitch = 0.0f;
 	float yaw = 0.0f;

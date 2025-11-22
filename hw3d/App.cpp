@@ -4,35 +4,28 @@
 
 App::App()
 	:
-	wnd(800, 600, "My Window")
+	wnd(800, 600, "My Window"),
+	rng(rd()),
+	adist(0.0f, 6.283f),
+	ddist(0.0f, 6.283f),
+	odist(0.0f, 3.1415f * 0.3f),
+	rdist(6.0f, 20.0f),
+	ad(0.0f, 0.000000001f),
+	dd(0.0f, 0.000000001f),
+	od(0.0f, 0.000000001f),
+	ld(0.0f, 0.000000001f),
+	dist(0.0f, 10.0f)
 {
-	std::mt19937 rng(std::random_device{}());
-	std::uniform_real_distribution<float> adist(0.0f, 3.1415f * 2.0f);
-	std::uniform_real_distribution<float> ddist(0.0f, 3.1415f * 2.0f);
-	std::uniform_real_distribution<float> odist(0.0f, 3.1415f * 0.3f);
-	std::uniform_real_distribution<float> rdist(6.0f, 20.0f); 
-	std::uniform_real_distribution<float> ad(0.0f, 0.000000001f);
-	std::uniform_real_distribution<float> dd(0.0f, 0.000000001f);
-	std::uniform_real_distribution<float> od(0.0f, 0.000000001f);
-	std::uniform_real_distribution<float> rd(0.0f, 0.000000001f);
+	
 	for (auto i = 0; i < 1000; i++)
 	{
-		boxes1.push_back(std::make_unique<Box>(
+		boxes1.emplace_back(std::make_unique<Box>(
 			wnd.Gfx(), rng, adist,
 			ddist, odist, rdist
 		));
 	}
-	for (auto i = 0; i < 1000; i++)
-	{
-		boxes2.push_back(std::make_unique<Box>(
-			wnd.Gfx(), rng, adist,
-			ddist, odist, rdist, 50.0f, 20.0f, 20.0f
-		));
-	}
-	/*box = std::make_unique<Box>(wnd.Gfx(), rng, adist,
-		ddist, odist, rdist);*/
 	box = std::make_unique<Box>(wnd.Gfx(), rng, ad,
-		dd, od, rd, 0.0f, -20.9f, 1.2f);
+		dd, od, ld, 0.0f, -20.9f, 1.2f);
 	wnd.Gfx().SetProjection(DirectX::XMMatrixPerspectiveLH(1.0f, 3.0f / 4.0f, 0.5f, 1000.0f));
 }
 
@@ -70,6 +63,13 @@ void App::UpdateFrame()
 		b->UpdateWorld(wnd.kbd);
 	}
 	box->UpdatePlayer(wnd.kbd);
+	
+	if (wnd.kbd.KeyIsPressed(VK_TAB)) {
+		boxes2.emplace_back(std::make_unique<Box>(
+			wnd.Gfx(), rng, adist,
+			ddist, odist, rdist, dist(rng), dist(rng), dist(rng)
+		));
+	}
 }
 
 void App::DoFrame()
