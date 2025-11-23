@@ -7,6 +7,7 @@
 #include "Cylinder.h"
 #include "GDIPlusManager.h"
 #include "imgui/imgui.h"
+#include "Pyramid.h"
 
 namespace dx = DirectX;
 
@@ -61,11 +62,12 @@ App::App()
 	drawables.reserve(nDrawables);
 	std::generate_n(std::back_inserter(drawables), nDrawables, Factory{ wnd.Gfx() });
 
-	wnd.Gfx().SetProjection(dx::XMMatrixPerspectiveLH(1.0f, 3.0f / 4.0f, 0.5f, 40.0f));
+	wnd.Gfx().SetProjection(dx::XMMatrixPerspectiveLH(1.0f, 3.0f / 4.0f, 0.5f, 400.0f));
 }
 
 void App::DoFrame()
 {
+	
 	const auto dt = timer.Mark() * speed_factor;		
 	wnd.Gfx().BeginFrame(0.07f, 0.0f, 0.12f);
 	wnd.Gfx().SetCamera(cam.GetMatrix());
@@ -73,7 +75,7 @@ void App::DoFrame()
 
 	for (auto& d : drawables)
 	{
-		d->Update(wnd.kbd.KeyIsPressed(VK_SPACE) ? 0.0f : dt);
+		d->Update(dt);
 		d->Draw(wnd.Gfx());
 	}
 	light.Draw(wnd.Gfx());
