@@ -361,3 +361,11 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+/hw3d/PhongPS.cso
+/hw3d/ColorBlendPS.cso
+/hw3d/ColorBlendVS.cso
+/hw3d/PhongVS.cso
+/hw3d/SolidPS.cso
+/hw3d/TexturePS.cso
+/hw3d/SolidVS.cso
+/hw3d/TextureVS.cso
