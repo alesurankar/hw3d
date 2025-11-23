@@ -29,7 +29,7 @@ App::App()
 	od(0.0f, 0.000000001f),
 	ld(0.0f, 0.000000001f),
 	bd(0.0f, 0.000000001f),
-	dist(0.0f, 10.0f)
+	dist(-100.0f, 100.0f)
 {
 
 	for (auto i = 0; i < 1000; i++)
@@ -68,7 +68,6 @@ void App::UpdateFrame()
 		b->Update(dt, wnd.kbd);
 		//b->UpdateWorld(wnd.kbd);
 	}
-	box->UpdatePlayer(wnd.kbd);
 	cam.UpdateWorld(wnd.kbd);
 }
 

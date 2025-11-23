@@ -5,17 +5,31 @@ namespace dx = DirectX;
 
 DirectX::XMMATRIX Camera::GetMatrix() const noexcept
 {
-	const auto pos = dx::XMVector3Transform(
-		dx::XMVectorSet( 0.0f,0.0f,-r,0.0f ),
-		dx::XMMatrixRotationRollPitchYaw( phi,-theta,0.0f )
-	);
-	return dx::XMMatrixLookAtLH(
-		pos,dx::XMVectorZero(),
-		dx::XMVectorSet( 0.0f,1.0f,0.0f,0.0f )
-	) * dx::XMMatrixRotationRollPitchYaw(
-		pitch,-yaw,roll
-	);
+	// camera rotation (pitch, yaw, roll)
+	const auto rotation = dx::XMMatrixRotationRollPitchYaw(pitch, yaw, roll);
+
+	// camera position in world space
+	const auto position = dx::XMVectorSet(x, y, z, 1.0f);
+
+	// local forward direction (camera looks down +Z in LH)
+	const auto localForward = dx::XMVectorSet(0.0f, 0.0f, 1.0f, 0.0f);
+
+	// rotate the forward direction by camera rotation (w=0 -> direction)
+	auto rotatedForward = dx::XMVector3TransformNormal(localForward, rotation);
+	rotatedForward = dx::XMVector3Normalize(rotatedForward);
+
+	// compute the target position in world space
+	const auto target = dx::XMVectorAdd(position, rotatedForward);
+
+	// rotate the up vector as well (w=0 -> direction)
+	auto up = dx::XMVector3TransformNormal(dx::XMVectorSet(0.0f, 1.0f, 0.0f, 0.0f), rotation);
+	up = dx::XMVector3Normalize(up);
+
+	// build and return the view matrix (eye, at, up)
+	return dx::XMMatrixLookAtLH(position, target, up);
 }
+
+
 
 void Camera::SpawnControlWindow() noexcept
 {
@@ -51,58 +65,66 @@ void Camera::UpdateWorld(Keyboard& kbd)
 {
 	if (kbd.KeyIsPressed('W'))
 	{
-		r -= 0.05f;
+		z += 0.15f;
 	}
 	if (kbd.KeyIsPressed('S'))
 	{
-		r += 0.05f;
+		z -= 0.15f;
 	}
 	if (kbd.KeyIsPressed('A'))
 	{
-		yaw -= 0.015f;
+		x -= 0.15f;
 	}
 	if (kbd.KeyIsPressed('D'))
 	{
-		yaw += 0.015f;
+		x += 0.15f;
 	}
 	if (kbd.KeyIsPressed(VK_SHIFT))
 	{
-		pitch -= 0.015f;
+		y -= 0.15f;
 	}
 	if (kbd.KeyIsPressed(VK_SPACE))
 	{
-		pitch += 0.015f;
+		y += 0.15f;
 	}
-	if (kbd.KeyIsPressed('P'))
+	if (kbd.KeyIsPressed('Q'))
 	{
-		roll -= 0.15f;
-	}
-	if (kbd.KeyIsPressed('O'))
-	{
-		theta -= 0.015f;
-	}
-	if (kbd.KeyIsPressed('I'))
-	{
-		phi -= 0.015f;
-	}
-	if (kbd.KeyIsPressed('U'))
-	{
-		yaw -= 0.015f;
-	}
-	if (kbd.KeyIsPressed('Z'))
-	{
-		pitch -= 0.15f;
-	}
-	if (kbd.KeyIsPressed('T'))
-	{
-		pitch -= 0.15f;
-	}
-	if (kbd.KeyIsPressed('R'))
-	{
-		yaw -= 0.15f;
+		yaw -= 0.02f;
 	}
 	if (kbd.KeyIsPressed('E'))
 	{
-		r -= 0.15f;
+		yaw += 0.02f;
 	}
+	if (kbd.KeyIsPressed('R'))
+	{
+		roll -= 0.02f;
+	}
+	//if (kbd.KeyIsPressed('O'))
+	//{
+	//	theta -= 0.015f;
+	//}
+	//if (kbd.KeyIsPressed('I'))
+	//{
+	//	phi -= 0.015f;
+	//}
+	//if (kbd.KeyIsPressed('U'))
+	//{
+	//	yaw -= 0.015f;
+	//}
+	//if (kbd.KeyIsPressed('Z'))
+	//{
+	//	pitch -= 0.15f;
+	//}
+	//if (kbd.KeyIsPressed('T'))
+	//{
+	//	x += 0.15f;
+	//}
+	//if (kbd.KeyIsPressed('R'))
+	//{
+	//	z += 0.15f;
+	//}
+	//if (kbd.KeyIsPressed('E'))
+	//{
+	//	y += 0.15f;
+	//}
 }
