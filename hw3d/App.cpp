@@ -17,80 +17,74 @@ GDIPlusManager gdipm;
 
 App::App()
 	:
-	wnd(800, 600, "My Window")
+	wnd(800, 600, "My Window"),
+	rng(rd()),
+	adist(0.0f, 6.283f),
+	ddist(0.0f, 6.283f),
+	odist(0.0f, 3.1415f * 0.3f),
+	rdist(6.0f, 20.0f),
+	bdist( 0.4f,3.0f ),
+	ad(0.0f, 0.000000001f),
+	dd(0.0f, 0.000000001f),
+	od(0.0f, 0.000000001f),
+	ld(0.0f, 0.000000001f),
+	bd(0.0f, 0.000000001f),
+	dist(0.0f, 10.0f)
 {
-	class Factory
+
+	for (auto i = 0; i < 1000; i++)
 	{
-	public:
-		Factory(Graphics& gfx)
-			:
-			gfx(gfx)
-		{}
-		std::unique_ptr<Drawable> operator()()
-		{
-			switch (typedist(rng))
-			{
-			case 0:
-				return std::make_unique<Pyramid>(
-					gfx, rng, adist, ddist,
-					odist, rdist
-				);
-			case 1:
-				return std::make_unique<Box>(
-					gfx, rng, adist, ddist,
-					odist, rdist, bdist
-				);
-			case 2:
-				return std::make_unique<Melon>(
-					gfx, rng, adist, ddist,
-					odist, rdist, longdist, latdist
-				); 
-			case 3:
-					return std::make_unique<Sheet>(
-						gfx, rng, adist, ddist,
-						odist, rdist
-					); 
-			case 4:
-						return std::make_unique<SkinnedBox>(
-							gfx, rng, adist, ddist,
-							odist, rdist
-						);
-			default:
-				assert(false && "bad drawable type in factory");
-				return {};
-			}
-		}
-	private:
-		Graphics& gfx;
-		std::mt19937 rng{ std::random_device{}() };
-		std::uniform_real_distribution<float> adist{ 0.0f,PI * 2.0f };
-		std::uniform_real_distribution<float> ddist{ 0.0f,PI * 0.5f };
-		std::uniform_real_distribution<float> odist{ 0.0f,PI * 0.08f };
-		std::uniform_real_distribution<float> rdist{ 6.0f,20.0f };
-		std::uniform_real_distribution<float> bdist{ 0.4f,3.0f };
-		std::uniform_int_distribution<int> latdist{ 5,20 };
-		std::uniform_int_distribution<int> longdist{ 10,40 };
-		std::uniform_int_distribution<int> typedist{ 0,4 };
-	};
-
-	Factory f(wnd.Gfx());
-	drawables.reserve(nDrawables);
-	std::generate_n(std::back_inserter(drawables), nDrawables, Factory{ wnd.Gfx() });
-
-	wnd.Gfx().SetProjection(dx::XMMatrixPerspectiveLH(1.0f, 3.0f / 4.0f, 0.5f, 40.0f));
+		boxes1.emplace_back(std::make_unique<Box>(
+			wnd.Gfx(), rng, adist,
+			ddist, odist, rdist, bdist
+		));
+	}
+	box = std::make_unique<Box>(wnd.Gfx(), rng, ad,
+		dd, od, ld, bd, 0.0f, -20.9f, 1.2f);
+	wnd.Gfx().SetProjection(DirectX::XMMatrixPerspectiveLH(1.0f, 3.0f / 4.0f, 0.5f, 1000.0f));
 }
 
-void App::DoFrame()
+
+void App::UpdateFrame()
 {
 	const auto dt = timer.Mark() * speed_factor;
 	wnd.Gfx().BeginFrame(0.07f, 0.0f, 0.12f);
 	wnd.Gfx().SetCamera(cam.GetMatrix());
 
-	for (auto& d : drawables)
-	{
-		d->Update(wnd.kbd.KeyIsPressed(VK_SPACE) ? 0.0f : dt);
-		d->Draw(wnd.Gfx());
+	if (wnd.kbd.KeyIsPressed(VK_TAB)) {
+		boxes2.emplace_back(std::make_unique<Box>(
+			wnd.Gfx(), rng, adist,
+			ddist, odist, rdist, bdist, dist(rng), dist(rng), dist(rng)
+		));
 	}
+
+	for (auto& b : boxes1)
+	{
+		b->Update(dt, wnd.kbd);
+		//b->UpdateWorld(wnd.kbd);
+	}
+	for (auto& b : boxes2)
+	{
+		b->Update(dt, wnd.kbd);
+		//b->UpdateWorld(wnd.kbd);
+	}
+	box->UpdatePlayer(wnd.kbd);
+	cam.UpdateWorld(wnd.kbd);
+}
+
+
+void App::DoFrame()
+{
+
+	//for (auto& b : boxes1)
+	//{
+	//	b->Draw(wnd.Gfx());
+	//}
+	for (auto& b : boxes2)
+	{
+		b->Draw(wnd.Gfx());
+	}
+	box->Draw(wnd.Gfx());
 
 	// imgui window to control simulation speed
 	if (ImGui::Begin("Simulation Speed"))
@@ -103,10 +97,8 @@ void App::DoFrame()
 
 	// imgui window to control camera
 	cam.SpawnControlWindow();
-
-	// present
-	wnd.Gfx().EndFrame();
 }
+
 
 App::~App()
 {}
@@ -122,6 +114,9 @@ int App::Go()
 			// if return optional has value, means we're quitting so return exit code
 			return *ecode;
 		}
+		UpdateFrame();
 		DoFrame();
+		// present
+		wnd.Gfx().EndFrame();
 	}
 }

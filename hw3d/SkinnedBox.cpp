@@ -68,7 +68,7 @@ SkinnedBox::SkinnedBox( Graphics& gfx,
 	AddBind( std::make_unique<TransformCbuf>( gfx,*this ) );
 }
 
-void SkinnedBox::Update( float dt ) noexcept
+void SkinnedBox::Update(float dt, Keyboard& kbd) noexcept
 {
 	roll += droll * dt;
 	pitch += dpitch * dt;

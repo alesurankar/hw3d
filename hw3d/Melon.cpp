@@ -83,7 +83,7 @@ Melon::Melon( Graphics& gfx,
 	AddBind( std::make_unique<TransformCbuf>( gfx,*this ) );
 }
 
-void Melon::Update( float dt ) noexcept
+void Melon::Update(float dt, Keyboard& kbd) noexcept
 {
 	roll += droll * dt;
 	pitch += dpitch * dt;

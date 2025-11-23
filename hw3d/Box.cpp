@@ -10,7 +10,8 @@ Box::Box(Graphics& gfx,
 	std::uniform_real_distribution<float>& ddist,
 	std::uniform_real_distribution<float>& odist,
 	std::uniform_real_distribution<float>& rdist,
-	std::uniform_real_distribution<float>& bdist)
+	std::uniform_real_distribution<float>& bdist,
+	float x_in, float y_in, float z_in)
 	:
 	r(rdist(rng)),
 	droll(ddist(rng)),
@@ -21,7 +22,10 @@ Box::Box(Graphics& gfx,
 	dchi(odist(rng)),
 	chi(adist(rng)),
 	theta(adist(rng)),
-	phi(adist(rng))
+	phi(adist(rng)),
+	x(x_in),
+	y(y_in),
+	z(z_in)
 {
 	namespace dx = DirectX;
 
@@ -90,7 +94,7 @@ Box::Box(Graphics& gfx,
 	);
 }
 
-void Box::Update(float dt) noexcept
+void Box::Update(float dt, Keyboard& kbd) noexcept
 {
 	roll += droll * dt;
 	pitch += dpitch * dt;
@@ -107,4 +111,83 @@ DirectX::XMMATRIX Box::GetTransformXM() const noexcept
 		dx::XMMatrixRotationRollPitchYaw(pitch, yaw, roll) *
 		dx::XMMatrixTranslation(r, 0.0f, 0.0f) * 
 		dx::XMMatrixRotationRollPitchYaw(theta, phi, chi);
+}
+
+void Box::UpdatePlayer(Keyboard& kbd)
+{
+	if (kbd.KeyIsPressed('W') && !kbd.KeyIsPressed('S')) {
+		if (u <= 0.2f)
+			u += 0.005f;
+	}
+	else if (!kbd.KeyIsPressed('W') && kbd.KeyIsPressed('S')) {
+		if (u >= -0.2f)
+			u -= 0.005f;
+	}
+	else if (!kbd.KeyIsPressed('W') && !kbd.KeyIsPressed('S')) {
+		if (u > 0.0f)
+			u -= 0.005f;
+		if (u < 0.0f)
+			u += 0.005f;
+	}
+
+	if (kbd.KeyIsPressed('D') && !kbd.KeyIsPressed('A')) {
+		if (yaw <= 0.2f)
+			yaw += 0.01f;
+	}
+	else if (!kbd.KeyIsPressed('D') && kbd.KeyIsPressed('A')) {
+		if (yaw >= -0.2f)
+			yaw -= 0.01f;
+	}
+	else if (!kbd.KeyIsPressed('D') && !kbd.KeyIsPressed('A')) {
+		if (yaw > 0.0f)
+			yaw -= 0.01f;
+		if (yaw < 0.0f)
+			yaw += 0.01f;
+	}
+
+	if (kbd.KeyIsPressed(VK_SHIFT) && !kbd.KeyIsPressed(VK_SPACE)) {
+		if (pitch <= 0.2f)
+			pitch += 0.01f;
+	}
+	else if (!kbd.KeyIsPressed(VK_SHIFT) && kbd.KeyIsPressed(VK_SPACE)) {
+		if (pitch >= -0.2f)
+			pitch -= 0.01f;
+	}
+	else if (!kbd.KeyIsPressed(VK_SHIFT) && !kbd.KeyIsPressed(VK_SPACE)) {
+		if (pitch > 0.0f)
+			pitch -= 0.01f;
+		if (pitch < 0.0f)
+			pitch += 0.01f;
+	}
+
+
+
+	/*if (kbd.KeyIsPressed('D')) {
+		if (pitch <= 0.2f)
+			pitch += 0.01f;
+	}
+	else {
+		if (pitch > 0.0f)
+			pitch -= 0.01f;
+	}
+	if (kbd.KeyIsPressed('A')) {
+		if (pitch <= 0.2f)
+			pitch += 0.01f;
+	}
+	else {
+		if (pitch > 0.0f)
+			pitch -= 0.01f;
+	}
+	if (kbd.KeyIsPressed('S'))
+	{
+		dpitch -= 0.01f;
+	}
+	if (kbd.KeyIsPressed('D'))
+	{
+		dyaw += 0.01f;
+	}
+	if (kbd.KeyIsPressed('A'))
+	{
+		dyaw -= 0.01f;
+	}*/
 }

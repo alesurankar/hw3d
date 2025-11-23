@@ -46,3 +46,63 @@ void Camera::Reset() noexcept
 	yaw = 0.0f;
 	roll = 0.0f;
 }
+
+void Camera::UpdateWorld(Keyboard& kbd)
+{
+	if (kbd.KeyIsPressed('W'))
+	{
+		r -= 0.05f;
+	}
+	if (kbd.KeyIsPressed('S'))
+	{
+		r += 0.05f;
+	}
+	if (kbd.KeyIsPressed('A'))
+	{
+		yaw -= 0.015f;
+	}
+	if (kbd.KeyIsPressed('D'))
+	{
+		yaw += 0.015f;
+	}
+	if (kbd.KeyIsPressed(VK_SHIFT))
+	{
+		pitch -= 0.015f;
+	}
+	if (kbd.KeyIsPressed(VK_SPACE))
+	{
+		pitch += 0.015f;
+	}
+	if (kbd.KeyIsPressed('P'))
+	{
+		roll -= 0.15f;
+	}
+	if (kbd.KeyIsPressed('O'))
+	{
+		theta -= 0.015f;
+	}
+	if (kbd.KeyIsPressed('I'))
+	{
+		phi -= 0.015f;
+	}
+	if (kbd.KeyIsPressed('U'))
+	{
+		yaw -= 0.015f;
+	}
+	if (kbd.KeyIsPressed('Z'))
+	{
+		pitch -= 0.15f;
+	}
+	if (kbd.KeyIsPressed('T'))
+	{
+		pitch -= 0.15f;
+	}
+	if (kbd.KeyIsPressed('R'))
+	{
+		yaw -= 0.15f;
+	}
+	if (kbd.KeyIsPressed('E'))
+	{
+		r -= 0.15f;
+	}
+}

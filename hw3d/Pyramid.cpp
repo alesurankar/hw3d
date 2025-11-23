@@ -75,7 +75,7 @@ Pyramid::Pyramid( Graphics& gfx,
 	AddBind( std::make_unique<TransformCbuf>( gfx,*this ) );
 }
 
-void Pyramid::Update( float dt ) noexcept
+void Pyramid::Update(float dt, Keyboard& kbd) noexcept
 {
 	roll += droll * dt;
 	pitch += dpitch * dt;
