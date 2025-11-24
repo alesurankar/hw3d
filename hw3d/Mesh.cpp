@@ -184,7 +184,7 @@ private:
 	Node* pSelectedNode;
 	struct TransformParameters
 	{
-		float roll = 0.0f;
+		float roll = -0.5f;
 		float pitch = 0.0f;
 		float yaw = 0.0f;
 		float x = 0.0f;
