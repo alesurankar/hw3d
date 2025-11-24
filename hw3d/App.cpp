@@ -20,7 +20,7 @@ GDIPlusManager gdipm;
 
 App::App()
 	:
-	wnd(800, 600, "The Donkey Fart Box"),
+	wnd(800, 600, "My Window"),
 	light(wnd.Gfx())
 {
 	class Factory
