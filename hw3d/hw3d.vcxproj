@@ -132,6 +132,7 @@
     <ClInclude Include="Bindable.h" />
     <ClInclude Include="BindableCommon.h" />
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="Color.h" />
     <ClInclude Include="ConditionalNoexcept.h" />
     <ClInclude Include="ConstantBuffers.h" />
     <ClInclude Include="Drawable.h" />
