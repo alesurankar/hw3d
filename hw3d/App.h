@@ -31,4 +31,8 @@ private:
 	Model wall{ wnd.Gfx(),"Models\\brick_wall\\brick_wall.obj",6.0f };
 	TestPlane tp{ wnd.Gfx(),6.0 };
 	Model nano{ wnd.Gfx(),"Models\\nano_textured\\nanosuit.obj",2.0f };
+	float x = 0.0f; 
+	float y = -7.0f; 
+	float z = 0.0f;
+	bool flip = false;
 };

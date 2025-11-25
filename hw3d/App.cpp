@@ -39,15 +39,15 @@ App::App(const std::string& commandLine)
 	wall.SetRootTransform(dx::XMMatrixTranslation(-12.0f, 0.0f, 0.0f));
 	tp.SetPos({ 12.0f,0.0f,0.0f });
 	gobber.SetRootTransform(dx::XMMatrixTranslation(0.0f, 0.0f, -4.0f));
-	nano.SetRootTransform(dx::XMMatrixTranslation(0.0f, -7.0f, 6.0f));
+	nano.SetRootTransform(dx::XMMatrixTranslation(x, y, z));
 
-	wnd.Gfx().SetProjection(dx::XMMatrixPerspectiveLH(1.0f, 9.0f / 16.0f, 0.5f, 40.0f));
+	wnd.Gfx().SetProjection(dx::XMMatrixPerspectiveLH(1.0f, 9.0f / 16.0f, 0.5f, 1000.0f));
 }
 
 void App::DoFrame()
 {
 	const auto dt = timer.Mark() * speed_factor;
-	wnd.Gfx().BeginFrame(0.07f, 0.0f, 0.12f);
+	wnd.Gfx().BeginFrame(0.1f, 0.0f, 0.3f);
 	wnd.Gfx().SetCamera(cam.GetMatrix());
 	light.Bind(wnd.Gfx(), cam.GetMatrix());
 
@@ -84,6 +84,13 @@ void App::DoFrame()
 		}
 	}
 
+	if (flip) {
+		z -= 10 * dt;
+	}
+	else {
+		z += 10 * dt;
+	}
+	nano.SetRootTransform(dx::XMMatrixTranslation(x, y, z));
 	if (!wnd.CursorEnabled())
 	{
 		if (wnd.kbd.KeyIsPressed('W'))
@@ -110,6 +117,10 @@ void App::DoFrame()
 		{
 			cam.Translate({ 0.0f,-dt,0.0f });
 		}
+		if (wnd.kbd.KeyIsPressed(VK_CONTROL))
+		{
+			flip = !flip;
+		}
 	}
 
 	while (const auto delta = wnd.mouse.ReadRawDelta())
@@ -127,7 +138,7 @@ void App::DoFrame()
 	gobber.ShowWindow(wnd.Gfx(), "gobber");
 	wall.ShowWindow(wnd.Gfx(), "Wall");
 	tp.SpawnControlWindow(wnd.Gfx());
-	nano.ShowWindow(wnd.Gfx(), "Nano");
+	//nano.ShowWindow(wnd.Gfx(), "Nano");
 
 	// present
 	wnd.Gfx().EndFrame();
