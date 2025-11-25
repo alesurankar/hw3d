@@ -66,8 +66,8 @@ void Camera::Translate(DirectX::XMFLOAT3 translation) noexcept
 		dx::XMMatrixScaling(travelSpeed, travelSpeed, travelSpeed)
 	));
 	pos = {
-		pos.x + translation.x,
-		pos.y + translation.y,
-		pos.z + translation.z
+		pos.x + translation.x, //levo,desno
+		pos.y + translation.y, //gor,dol
+		pos.z + translation.z //naprej,nazaj
 	};
 }
