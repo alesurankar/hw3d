@@ -73,11 +73,11 @@ void App::DoFrame()
 		{
 			cam.Translate({ dt,0.0f,0.0f });
 		}
-		if (wnd.kbd.KeyIsPressed('R'))
+		if (wnd.kbd.KeyIsPressed(VK_SPACE))
 		{
 			cam.Translate({ 0.0f,dt,0.0f });
 		}
-		if (wnd.kbd.KeyIsPressed('F'))
+		if (wnd.kbd.KeyIsPressed(VK_SHIFT))
 		{
 			cam.Translate({ 0.0f,-dt,0.0f });
 		}
