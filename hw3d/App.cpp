@@ -107,40 +107,37 @@ void App::DoFrame()
 		}
 	}
 
-	//if (!wnd.CursorEnabled())
-	//{
-		if (wnd.mouse.RightIsPressed()) {
-			wnd.DisableCursor();
-			wnd.mouse.EnableRaw();
-			mouse_pos = wnd.mouse.GetPos();
-			wnd.mouse.SetPos(mouse_pos.first, mouse_pos.second);
-			if (wnd.mouse.LeftIsPressed()) {
-				cam.Translate({ 0.0f, 0.0f, dt });
-			}
-			else if (wnd.kbd.KeyIsPressed('W')) {
-				cam.Translate({ 0.0f,0.0f,dt });
-			}
+	if (wnd.mouse.RightIsPressed()) {
+		wnd.mouse.SetPos(mouse_pos.first, mouse_pos.second);
+		wnd.DisableCursor();
+		wnd.mouse.EnableRaw();
+		if (wnd.mouse.LeftIsPressed() || wnd.kbd.KeyIsPressed('W')) {
+			cam.Translate({ 0.0f, 0.0f, dt });
 		}
-		else {
-			wnd.EnableCursor();
-			wnd.mouse.DisableRaw();			
+	}
+	else {
+		mouse_pos = wnd.mouse.GetPos();
+		wnd.EnableCursor();
+		wnd.mouse.DisableRaw();
+		if (wnd.kbd.KeyIsPressed('W')) {
+			cam.Translate({ 0.0f,0.0f,dt });
 		}
-		if (wnd.kbd.KeyIsPressed('A')) {
-			cam.Translate({ -dt,0.0f,0.0f });
-		}
-		if (wnd.kbd.KeyIsPressed('S')) {
-			cam.Translate({ 0.0f,0.0f,-dt });
-		}
-		if (wnd.kbd.KeyIsPressed('D')) {
-			cam.Translate({ dt,0.0f,0.0f });
-		}
-		if (wnd.kbd.KeyIsPressed(VK_SPACE)) {
-			cam.Translate({ 0.0f,dt,0.0f });
-		}
-		if (wnd.kbd.KeyIsPressed(VK_SHIFT)) {
-			cam.Translate({ 0.0f,-dt,0.0f });
-		}
-	//}
+	}
+	if (wnd.kbd.KeyIsPressed('A')) {
+		cam.Translate({ -dt,0.0f,0.0f });
+	}
+	if (wnd.kbd.KeyIsPressed('S')) {
+		cam.Translate({ 0.0f,0.0f,-dt });
+	}
+	if (wnd.kbd.KeyIsPressed('D')) {
+		cam.Translate({ dt,0.0f,0.0f });
+	}
+	if (wnd.kbd.KeyIsPressed(VK_SPACE)) {
+		cam.Translate({ 0.0f,dt,0.0f });
+	}
+	if (wnd.kbd.KeyIsPressed(VK_SHIFT)) {
+		cam.Translate({ 0.0f,-dt,0.0f });
+	}
 
 	while (const auto delta = wnd.mouse.ReadRawDelta())
 	{
