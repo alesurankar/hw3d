@@ -73,9 +73,12 @@ void App::DoFrame()
 	}*/
 
 	if (wnd.mouse.RightIsPressed()) {
-		wnd.mouse.SetPos(mouse_pos.first, mouse_pos.second);
-		wnd.DisableCursor();
-		wnd.mouse.EnableRaw();
+		if (!cursorCaptured) {
+			mouse_pos = wnd.mouse.GetPos();
+			cursorCaptured = true;
+			wnd.DisableCursor();
+			wnd.mouse.EnableRaw();
+		}
 		if (wnd.mouse.LeftIsPressed() || wnd.kbd.KeyIsPressed('W')) {
 			cam.Translate({ 0.0f, 0.0f, dt });
 		}
@@ -84,9 +87,12 @@ void App::DoFrame()
 		}
 	}
 	else {
-		mouse_pos = wnd.mouse.GetPos();
-		wnd.EnableCursor();
-		wnd.mouse.DisableRaw();
+		if (cursorCaptured) {
+			wnd.mouse.SetPos(mouse_pos.first+100, mouse_pos.second+100);
+			cursorCaptured = false;
+			wnd.EnableCursor();
+			wnd.mouse.DisableRaw();
+		}
 		if (wnd.kbd.KeyIsPressed('W')) {
 			cam.Translate({ 0.0f,0.0f,dt });
 		}

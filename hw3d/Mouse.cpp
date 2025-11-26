@@ -9,9 +9,9 @@ std::pair<int,int> Mouse::GetPos() const noexcept
 
 void Mouse::SetPos(int x, int y) noexcept
 {
-	SetCursorPos(x, y);
 	this->x = x;
 	this->y = y;
+	SetCursorPos(x, y);
 }
 
 std::optional<Mouse::RawDelta> Mouse::ReadRawDelta() noexcept

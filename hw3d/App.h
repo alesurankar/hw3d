@@ -39,4 +39,5 @@ private:
 	static constexpr int screenWidth = 1280;
 	static constexpr int screenHeight = 720;
 	std::pair<int, int> mouse_pos;
+	bool cursorCaptured = false;
 };
