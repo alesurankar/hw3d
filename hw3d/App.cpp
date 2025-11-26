@@ -15,7 +15,7 @@ namespace dx = DirectX;
 App::App(const std::string& commandLine)
 	:
 	commandLine(commandLine),
-	wnd(1280, 720, "My DirectX Framework"),
+	wnd(screenWidth, screenHeight, "My DirectX Framework"),
 	scriptCommander(TokenizeQuoted(commandLine)),
 	light(wnd.Gfx())
 {
@@ -45,7 +45,7 @@ void App::DoFrame()
 	bluePlane.Draw(wnd.Gfx());
 	redPlane.Draw(wnd.Gfx());
 
-	while (const auto e = wnd.kbd.ReadKey())
+	/*while (const auto e = wnd.kbd.ReadKey())
 	{
 		if (!e->IsPress())
 		{
@@ -70,34 +70,41 @@ void App::DoFrame()
 			showDemoWindow = true;
 			break;
 		}
-	}
+	}*/
 
-	if (!wnd.CursorEnabled())
-	{
-		if (wnd.kbd.KeyIsPressed('W'))
-		{
+	if (wnd.mouse.RightIsPressed()) {
+		wnd.mouse.SetPos(mouse_pos.first, mouse_pos.second);
+		wnd.DisableCursor();
+		wnd.mouse.EnableRaw();
+		if (wnd.mouse.LeftIsPressed() || wnd.kbd.KeyIsPressed('W')) {
+			cam.Translate({ 0.0f, 0.0f, dt });
+		}
+		if (wnd.kbd.KeyIsPressed('S')) {
+			cam.Translate({ 0.0f, 0.0f, -dt/2 });
+		}
+	}
+	else {
+		mouse_pos = wnd.mouse.GetPos();
+		wnd.EnableCursor();
+		wnd.mouse.DisableRaw();
+		if (wnd.kbd.KeyIsPressed('W')) {
 			cam.Translate({ 0.0f,0.0f,dt });
 		}
-		if (wnd.kbd.KeyIsPressed('A'))
-		{
-			cam.Translate({ -dt,0.0f,0.0f });
-		}
-		if (wnd.kbd.KeyIsPressed('S'))
-		{
-			cam.Translate({ 0.0f,0.0f,-dt });
-		}
-		if (wnd.kbd.KeyIsPressed('D'))
-		{
-			cam.Translate({ dt,0.0f,0.0f });
-		}
-		if (wnd.kbd.KeyIsPressed(VK_SPACE))
-		{
-			cam.Translate({ 0.0f,dt,0.0f });
-		}
-		if (wnd.kbd.KeyIsPressed(VK_SHIFT))
-		{
-			cam.Translate({ 0.0f,-dt,0.0f });
-		}
+	}
+	if (wnd.kbd.KeyIsPressed('A')) {
+		cam.Translate({ -dt,0.0f,0.0f });
+	}
+	if (wnd.kbd.KeyIsPressed('S')) {
+		cam.Translate({ 0.0f,0.0f,-dt });
+	}
+	if (wnd.kbd.KeyIsPressed('D')) {
+		cam.Translate({ dt,0.0f,0.0f });
+	}
+	if (wnd.kbd.KeyIsPressed(VK_SPACE)) {
+		cam.Translate({ 0.0f,dt,0.0f });
+	}
+	if (wnd.kbd.KeyIsPressed(VK_SHIFT)) {
+		cam.Translate({ 0.0f,-dt,0.0f });
 	}
 
 	while (const auto delta = wnd.mouse.ReadRawDelta())

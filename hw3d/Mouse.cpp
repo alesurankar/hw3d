@@ -7,6 +7,13 @@ std::pair<int,int> Mouse::GetPos() const noexcept
 	return { x,y };
 }
 
+void Mouse::SetPos(int x, int y) noexcept
+{
+	SetCursorPos(x, y);
+	this->x = x;
+	this->y = y;
+}
+
 std::optional<Mouse::RawDelta> Mouse::ReadRawDelta() noexcept
 {
 	if( rawDeltaBuffer.empty() )
@@ -100,7 +107,7 @@ void Mouse::OnMouseEnter() noexcept
 void Mouse::OnRawDelta( int dx,int dy ) noexcept
 {
 	rawDeltaBuffer.push( { dx,dy } );
-	TrimBuffer();
+	TrimRawInputBuffer();
 }
 
 void Mouse::OnLeftPressed( int x,int y ) noexcept
