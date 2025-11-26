@@ -16,7 +16,7 @@ GDIPlusManager gdipm;
 App::App(const std::string& commandLine)
 	:
 	commandLine(commandLine),
-	wnd(1280, 720, "My DirectX Framework"),
+	wnd(screenWidth, screenHeight, "My DirectX Framework"),
 	light(wnd.Gfx())
 {
 	// makeshift cli for doing some preprocessing bullshit (so many hacks here)
@@ -107,33 +107,40 @@ void App::DoFrame()
 		}
 	}
 
-	if (!wnd.CursorEnabled())
-	{
-		if (wnd.kbd.KeyIsPressed('W'))
-		{
-			cam.Translate({ 0.0f,0.0f,dt });
+	//if (!wnd.CursorEnabled())
+	//{
+		if (wnd.mouse.RightIsPressed()) {
+			wnd.DisableCursor();
+			wnd.mouse.EnableRaw();
+			mouse_pos = wnd.mouse.GetPos();
+			wnd.mouse.SetPos(mouse_pos.first, mouse_pos.second);
+			if (wnd.mouse.LeftIsPressed()) {
+				cam.Translate({ 0.0f, 0.0f, dt });
+			}
+			else if (wnd.kbd.KeyIsPressed('W')) {
+				cam.Translate({ 0.0f,0.0f,dt });
+			}
 		}
-		if (wnd.kbd.KeyIsPressed('A'))
-		{
+		else {
+			wnd.EnableCursor();
+			wnd.mouse.DisableRaw();			
+		}
+		if (wnd.kbd.KeyIsPressed('A')) {
 			cam.Translate({ -dt,0.0f,0.0f });
 		}
-		if (wnd.kbd.KeyIsPressed('S'))
-		{
+		if (wnd.kbd.KeyIsPressed('S')) {
 			cam.Translate({ 0.0f,0.0f,-dt });
 		}
-		if (wnd.kbd.KeyIsPressed('D'))
-		{
+		if (wnd.kbd.KeyIsPressed('D')) {
 			cam.Translate({ dt,0.0f,0.0f });
 		}
-		if (wnd.kbd.KeyIsPressed(VK_SPACE))
-		{
+		if (wnd.kbd.KeyIsPressed(VK_SPACE)) {
 			cam.Translate({ 0.0f,dt,0.0f });
 		}
-		if (wnd.kbd.KeyIsPressed(VK_SHIFT))
-		{
+		if (wnd.kbd.KeyIsPressed(VK_SHIFT)) {
 			cam.Translate({ 0.0f,-dt,0.0f });
 		}
-	}
+	//}
 
 	while (const auto delta = wnd.mouse.ReadRawDelta())
 	{
