@@ -228,6 +228,8 @@
     <ClInclude Include="MyXM.h" />
     <ClInclude Include="Node.h" />
     <ClInclude Include="NullPixelShader.h" />
+    <ClInclude Include="OutlineDrawingPass.h" />
+    <ClInclude Include="OutlineMaskGenerationPass.h" />
     <ClInclude Include="Pass.h" />
     <ClInclude Include="PassInput.h" />
     <ClInclude Include="PassOutput.h" />
