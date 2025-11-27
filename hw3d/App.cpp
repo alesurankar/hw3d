@@ -58,7 +58,10 @@ void App::DoFrame()
 	//redPlane.Draw( wnd.Gfx() );
 	fc.Execute(wnd.Gfx());
 
-
+	float speed = 1.0f * dt;
+	if (wnd.kbd.KeyIsPressed(VK_SHIFT)) {
+		speed = 2.0f * dt;
+	}
 	if (wnd.mouse.RightIsPressed()) {
 		if (!cursorCaptured) {
 			mouse_pos = wnd.mouse.GetPos();
@@ -67,10 +70,10 @@ void App::DoFrame()
 			wnd.mouse.EnableRaw();
 		}
 		if (wnd.mouse.LeftIsPressed() || wnd.kbd.KeyIsPressed('W')) {
-			cam.Translate({ 0.0f, 0.0f, dt });
+			cam.Translate({ 0.0f, 0.0f, speed });
 		}
 		/*if (wnd.kbd.KeyIsPressed('S')) {
-			cam.Translate({ 0.0f, 0.0f, -dt / 2 });
+			cam.Translate({ 0.0f, 0.0f, -speed / 2 });
 		}*/
 	}
 	else {
@@ -81,23 +84,23 @@ void App::DoFrame()
 			wnd.mouse.DisableRaw();
 		}
 		if (wnd.kbd.KeyIsPressed('W')) {
-			cam.Translate({ 0.0f,0.0f,dt });
+			cam.Translate({ 0.0f,0.0f,speed });
 		}
 	}
 	if (wnd.kbd.KeyIsPressed('A')) {
-		cam.Translate({ -dt,0.0f,0.0f });
+		cam.Translate({ -speed,0.0f,0.0f });
 	}
 	if (wnd.kbd.KeyIsPressed('S')) {
-		cam.Translate({ 0.0f,0.0f,-dt / 2 });
+		cam.Translate({ 0.0f,0.0f,-speed / 2 });
 	}
 	if (wnd.kbd.KeyIsPressed('D')) {
-		cam.Translate({ dt,0.0f,0.0f });
+		cam.Translate({ speed,0.0f,0.0f });
 	}
 	if (wnd.kbd.KeyIsPressed(VK_SPACE)) {
-		cam.Translate({ 0.0f,dt,0.0f });
+		cam.Translate({ 0.0f,speed,0.0f });
 	}
-	if (wnd.kbd.KeyIsPressed(VK_SHIFT)) {
-		cam.Translate({ 0.0f,-dt,0.0f });
+	if (wnd.kbd.KeyIsPressed(VK_CONTROL)) {
+		cam.Translate({ 0.0f,-speed,0.0f });
 	}
 
 	while (const auto delta = wnd.mouse.ReadRawDelta())
