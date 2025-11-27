@@ -43,4 +43,8 @@ private:
 	//Model wall{ wnd.Gfx(),"Models\\brick_wall\\brick_wall.obj",6.0f };
 	//TestPlane tp{ wnd.Gfx(),6.0 };
 	//Model nano{ wnd.Gfx(),"Models\\nano_textured\\nanosuit.obj",2.0f };
+	static constexpr int screenWidth = 1280;
+	static constexpr int screenHeight = 720;
+	std::pair<int, int> mouse_pos;
+	bool cursorCaptured = false;
 };

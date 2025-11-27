@@ -19,7 +19,7 @@ const char* MyException::what() const noexcept
 
 const char* MyException::GetType() const noexcept
 {
-	return "Chili Exception";
+	return "My Exception";
 }
 
 int MyException::GetLine() const noexcept

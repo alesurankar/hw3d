@@ -22,7 +22,7 @@ namespace dx = DirectX;
 App::App(const std::string& commandLine)
 	:
 	commandLine(commandLine),
-	wnd(1280, 720, "My DirectX Framework"),
+	wnd(screenWidth, screenHeight, "My DirectX Framework"),
 	scriptCommander(TokenizeQuoted(commandLine)),
 	light(wnd.Gfx())
 {
@@ -36,7 +36,7 @@ App::App(const std::string& commandLine)
 	//bluePlane.SetPos( cam.GetPos() );
 	//redPlane.SetPos( cam.GetPos() );
 
-	wnd.Gfx().SetProjection(dx::XMMatrixPerspectiveLH(1.0f, 9.0f / 16.0f, 0.5f, 400.0f));
+	wnd.Gfx().SetProjection(dx::XMMatrixPerspectiveLH(1.0f, 9.0f / 16.0f, 0.5f, 1000.0f));
 }
 
 void App::DoFrame()
@@ -58,59 +58,46 @@ void App::DoFrame()
 	//redPlane.Draw( wnd.Gfx() );
 	fc.Execute(wnd.Gfx());
 
-	while (const auto e = wnd.kbd.ReadKey())
-	{
-		if (!e->IsPress())
-		{
-			continue;
-		}
 
-		switch (e->GetCode())
-		{
-		case VK_ESCAPE:
-			if (wnd.CursorEnabled())
-			{
-				wnd.DisableCursor();
-				wnd.mouse.EnableRaw();
-			}
-			else
-			{
-				wnd.EnableCursor();
-				wnd.mouse.DisableRaw();
-			}
-			break;
-		case VK_F1:
-			showDemoWindow = true;
-			break;
+	if (wnd.mouse.RightIsPressed()) {
+		if (!cursorCaptured) {
+			mouse_pos = wnd.mouse.GetPos();
+			cursorCaptured = true;
+			wnd.DisableCursor();
+			wnd.mouse.EnableRaw();
 		}
+		if (wnd.mouse.LeftIsPressed() || wnd.kbd.KeyIsPressed('W')) {
+			cam.Translate({ 0.0f, 0.0f, dt });
+		}
+		/*if (wnd.kbd.KeyIsPressed('S')) {
+			cam.Translate({ 0.0f, 0.0f, -dt / 2 });
+		}*/
 	}
-
-	if (!wnd.CursorEnabled())
-	{
-		if (wnd.kbd.KeyIsPressed('W'))
-		{
+	else {
+		if (cursorCaptured) {
+			wnd.mouse.SetPos(mouse_pos.first + 100, mouse_pos.second + 100);
+			cursorCaptured = false;
+			wnd.EnableCursor();
+			wnd.mouse.DisableRaw();
+		}
+		if (wnd.kbd.KeyIsPressed('W')) {
 			cam.Translate({ 0.0f,0.0f,dt });
 		}
-		if (wnd.kbd.KeyIsPressed('A'))
-		{
-			cam.Translate({ -dt,0.0f,0.0f });
-		}
-		if (wnd.kbd.KeyIsPressed('S'))
-		{
-			cam.Translate({ 0.0f,0.0f,-dt });
-		}
-		if (wnd.kbd.KeyIsPressed('D'))
-		{
-			cam.Translate({ dt,0.0f,0.0f });
-		}
-		if (wnd.kbd.KeyIsPressed(VK_SPACE))
-		{
-			cam.Translate({ 0.0f,dt,0.0f });
-		}
-		if (wnd.kbd.KeyIsPressed(VK_SHIFT))
-		{
-			cam.Translate({ 0.0f,-dt,0.0f });
-		}
+	}
+	if (wnd.kbd.KeyIsPressed('A')) {
+		cam.Translate({ -dt,0.0f,0.0f });
+	}
+	if (wnd.kbd.KeyIsPressed('S')) {
+		cam.Translate({ 0.0f,0.0f,-dt / 2 });
+	}
+	if (wnd.kbd.KeyIsPressed('D')) {
+		cam.Translate({ dt,0.0f,0.0f });
+	}
+	if (wnd.kbd.KeyIsPressed(VK_SPACE)) {
+		cam.Translate({ 0.0f,dt,0.0f });
+	}
+	if (wnd.kbd.KeyIsPressed(VK_SHIFT)) {
+		cam.Translate({ 0.0f,-dt,0.0f });
 	}
 
 	while (const auto delta = wnd.mouse.ReadRawDelta())
@@ -120,6 +107,7 @@ void App::DoFrame()
 			cam.Rotate(static_cast<float>(delta->x), static_cast<float>(delta->y));
 		}
 	}
+
 
 	// Mesh techniques window
 	class TP : public TechniqueProbe

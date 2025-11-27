@@ -70,7 +70,7 @@ Window::Window(int width, int height, const char* name)
 	hWnd = CreateWindow(
 		WindowClass::GetName(), name,
 		WS_CAPTION | WS_MINIMIZEBOX | WS_SYSMENU,
-		CW_USEDEFAULT, CW_USEDEFAULT, wr.right - wr.left, wr.bottom - wr.top,
+		wr.left, wr.top, wr.right - wr.left, wr.bottom - wr.top,
 		nullptr, nullptr, WindowClass::GetInstance(), this
 	);
 	// check for error
@@ -504,7 +504,7 @@ const char* Window::HrException::what() const noexcept
 
 const char* Window::HrException::GetType() const noexcept
 {
-	return "Chili Window Exception";
+	return "My Window Exception";
 }
 
 HRESULT Window::HrException::GetErrorCode() const noexcept
@@ -519,5 +519,5 @@ std::string Window::HrException::GetErrorDescription() const noexcept
 
 const char* Window::NoGfxException::GetType() const noexcept
 {
-	return "Chili Window Exception [No Graphics]";
+	return "My Window Exception [No Graphics]";
 }
