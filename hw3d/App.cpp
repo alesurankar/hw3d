@@ -26,7 +26,7 @@ App::App(const std::string& commandLine)
 	scriptCommander(TokenizeQuoted(commandLine)),
 	light(wnd.Gfx())
 {
-	cube.SetPos({ 4.0f,0.0f,0.0f });
+	cube.SetPos({ cube_x,0.0f,0.0f });
 	cube2.SetPos({ 0.0f,4.0f,0.0f });
 
 	//wall.SetRootTransform( dx::XMMatrixTranslation( -12.0f,0.0f,0.0f ) );
@@ -46,6 +46,9 @@ void App::DoFrame()
 	wnd.Gfx().SetCamera(cam.GetMatrix());
 	light.Bind(wnd.Gfx(), cam.GetMatrix());
 
+	cube_x += dt;
+
+	cube.SetPos({ cube_x, 0.0f, 0.0f });
 	//wall.Draw( wnd.Gfx() );
 	//tp.Draw( wnd.Gfx() );
 	//nano.Draw( wnd.Gfx() );

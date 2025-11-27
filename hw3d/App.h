@@ -47,4 +47,5 @@ private:
 	static constexpr int screenHeight = 720;
 	std::pair<int, int> mouse_pos;
 	bool cursorCaptured = false;
+	float cube_x = 4.0f;
 };
