@@ -247,6 +247,7 @@
     <ClInclude Include="Technique.h" />
     <ClInclude Include="TechniqueProbe.h" />
     <ClInclude Include="Testing.h" />
+    <ClInclude Include="TestModelProbe.h" />
     <ClInclude Include="TexturePreprocessor.h" />
     <ClInclude Include="PixelShader.h" />
     <ClInclude Include="Plane.h" />
