@@ -7,6 +7,7 @@
 
 class Drawable;
 class TechniqueProbe;
+class Graphics;
 
 namespace Bind
 {

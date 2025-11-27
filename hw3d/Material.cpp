@@ -16,7 +16,7 @@ modelPath(path.string())
 	// phong technique
 	{
 		Technique phong{ "Phong" };
-		Step step(0);
+		Step step("lambertian");
 		std::string shaderCode = "Phong";
 		aiString texFileName;
 
@@ -123,55 +123,55 @@ modelPath(path.string())
 		phong.AddStep(std::move(step));
 		techniques.push_back(std::move(phong));
 	}
-	// outline technique
-	{
-		Technique outline("Outline", false);
-		{
-			Step mask(1);
-
-			auto pvs = VertexShader::Resolve(gfx, "Solid_VS.cso");
-			auto pvsbc = pvs->GetBytecode();
-			mask.AddBindable(std::move(pvs));
-
-			// TODO: better sub-layout generation tech for future consideration maybe
-			mask.AddBindable(InputLayout::Resolve(gfx, vtxLayout, pvsbc));
-
-			mask.AddBindable(std::make_shared<TransformCbuf>(gfx));
-
-			// TODO: might need to specify rasterizer when doubled-sided models start being used
-
-			outline.AddStep(std::move(mask));
-		}
-		{
-			Step draw(2);
-
-			// these can be pass-constant (tricky due to layout issues)
-			auto pvs = VertexShader::Resolve(gfx, "Solid_VS.cso");
-			auto pvsbc = pvs->GetBytecode();
-			draw.AddBindable(std::move(pvs));
-
-			// this can be pass-constant
-			draw.AddBindable(PixelShader::Resolve(gfx, "Solid_PS.cso"));
-
-			{
-				Dcb::RawLayout lay;
-				lay.Add<Dcb::Float3>("materialColor");
-				auto buf = Dcb::Buffer(std::move(lay));
-				buf["materialColor"] = DirectX::XMFLOAT3{ 1.0f,0.4f,0.4f };
-				draw.AddBindable(std::make_shared<Bind::CachingPixelConstantBufferEx>(gfx, buf, 1u));
-			}
-
-			// TODO: better sub-layout generation tech for future consideration maybe
-			draw.AddBindable(InputLayout::Resolve(gfx, vtxLayout, pvsbc));
-
-			draw.AddBindable(std::make_shared<TransformCbuf>(gfx));
-
-			// TODO: might need to specify rasterizer when doubled-sided models start being used
-
-			outline.AddStep(std::move(draw));
-		}
-		techniques.push_back(std::move(outline));
-	}
+	//// outline technique
+	//{
+	//	Technique outline("Outline", false);
+	//	{
+	//		Step mask(1);
+	//
+	//		auto pvs = VertexShader::Resolve(gfx, "Solid_VS.cso");
+	//		auto pvsbc = pvs->GetBytecode();
+	//		mask.AddBindable(std::move(pvs));
+	//
+	//		// TODO: better sub-layout generation tech for future consideration maybe
+	//		mask.AddBindable(InputLayout::Resolve(gfx, vtxLayout, pvsbc));
+	//
+	//		mask.AddBindable(std::make_shared<TransformCbuf>(gfx));
+	//
+	//		// TODO: might need to specify rasterizer when doubled-sided models start being used
+	//
+	//		outline.AddStep(std::move(mask));
+	//	}
+	//	{
+	//		Step draw(2);
+	//
+	//		// these can be pass-constant (tricky due to layout issues)
+	//		auto pvs = VertexShader::Resolve(gfx, "Solid_VS.cso");
+	//		auto pvsbc = pvs->GetBytecode();
+	//		draw.AddBindable(std::move(pvs));
+	//
+	//		// this can be pass-constant
+	//		draw.AddBindable(PixelShader::Resolve(gfx, "Solid_PS.cso"));
+	//
+	//		{
+	//			Dcb::RawLayout lay;
+	//			lay.Add<Dcb::Float3>("materialColor");
+	//			auto buf = Dcb::Buffer(std::move(lay));
+	//			buf["materialColor"] = DirectX::XMFLOAT3{ 1.0f,0.4f,0.4f };
+	//			draw.AddBindable(std::make_shared<Bind::CachingPixelConstantBufferEx>(gfx, buf, 1u));
+	//		}
+	//
+	//		// TODO: better sub-layout generation tech for future consideration maybe
+	//		draw.AddBindable(InputLayout::Resolve(gfx, vtxLayout, pvsbc));
+	//
+	//		draw.AddBindable(std::make_shared<TransformCbuf>(gfx));
+	//
+	//		// TODO: might need to specify rasterizer when doubled-sided models start being used
+	//
+	//		outline.AddStep(std::move(draw));
+	//	}
+	//	techniques.push_back(std::move(outline));
+	//}
 }
 Dvtx::VertexBuffer Material::ExtractVertices(const aiMesh& mesh) const noexcept
 {
