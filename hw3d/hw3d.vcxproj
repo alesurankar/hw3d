@@ -107,6 +107,7 @@
     <ClCompile Include="App.cpp" />
     <ClCompile Include="BindingPass.cpp" />
     <ClCompile Include="Blender.cpp" />
+    <ClCompile Include="BlurOutlineRenderGraph.cpp" />
     <ClCompile Include="BufferClearPass.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="DepthStencil.cpp" />
@@ -117,6 +118,7 @@
     <ClCompile Include="FullScreenPass.cpp" />
     <ClCompile Include="Graphics.cpp" />
     <ClCompile Include="GraphicsResource.cpp" />
+    <ClCompile Include="HorizontalBlurPass.cpp" />
     <ClCompile Include="ImguiManager.cpp" />
     <ClCompile Include="imgui\imgui.cpp" />
     <ClCompile Include="imgui\imgui_demo.cpp" />
@@ -160,7 +162,7 @@
     <ClCompile Include="TestCube.cpp" />
     <ClCompile Include="Testing.cpp" />
     <ClCompile Include="TestPlane.cpp" />
-    <ClCompile Include="TestRenderGraph.cpp" />
+    <ClCompile Include="ScaleOutlineRenderGraph.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="TexturePreprocessor.cpp" />
     <ClCompile Include="Topology.cpp" />
@@ -169,6 +171,7 @@
     <ClCompile Include="Vertex.cpp" />
     <ClCompile Include="VertexBuffer.cpp" />
     <ClCompile Include="VertexShader.cpp" />
+    <ClCompile Include="VerticalBlurPass.cpp" />
     <ClCompile Include="Window.cpp" />
     <ClCompile Include="WindowsMessageMap.cpp" />
     <ClCompile Include="WinMain.cpp" />
@@ -181,6 +184,8 @@
     <ClInclude Include="BindableCommon.h" />
     <ClInclude Include="BindingPass.h" />
     <ClInclude Include="Blender.h" />
+    <ClInclude Include="BlurOutlineRenderGraph.h" />
+    <ClInclude Include="BlurOutlineDrawingPass.h" />
     <ClInclude Include="BlurPack.h" />
     <ClInclude Include="BufferClearPass.h" />
     <ClInclude Include="BufferResource.h" />
@@ -199,6 +204,7 @@
     <ClInclude Include="Graphics.h" />
     <ClInclude Include="GraphicsResource.h" />
     <ClInclude Include="GraphicsThrowMacros.h" />
+    <ClInclude Include="HorizontalBlurPass.h" />
     <ClInclude Include="ImguiManager.h" />
     <ClInclude Include="imgui\imconfig.h" />
     <ClInclude Include="imgui\imgui.h" />
@@ -249,7 +255,7 @@
     <ClInclude Include="TechniqueProbe.h" />
     <ClInclude Include="Testing.h" />
     <ClInclude Include="TestModelProbe.h" />
-    <ClInclude Include="TestRenderGraph.h" />
+    <ClInclude Include="ScaleOutlineRenderGraph.h" />
     <ClInclude Include="TexturePreprocessor.h" />
     <ClInclude Include="PixelShader.h" />
     <ClInclude Include="Plane.h" />
@@ -268,6 +274,7 @@
     <ClInclude Include="VertexBuffer.h" />
     <ClInclude Include="Vertex.h" />
     <ClInclude Include="VertexShader.h" />
+    <ClInclude Include="VerticalBlurPass.h" />
     <ClInclude Include="Window.h" />
     <ClInclude Include="WindowsMessageMap.h" />
     <ClInclude Include="WindowsThrowMacros.h" />
