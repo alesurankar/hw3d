@@ -270,6 +270,9 @@
     <ClCompile Include="TransformCbufScaling.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="TestRenderGraph.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Drawable.h">
@@ -558,6 +561,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="TestModelProbe.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TestRenderGraph.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
