@@ -19,7 +19,6 @@ private:
 	Window wnd;
 	MyTimer timer;
 	std::vector<std::unique_ptr<class Drawable>> drawables;
-	std::vector<Pyramid> pyr;
 	float speed_factor = 1.0f;
 	Camera cam;
 	PointLight light;
