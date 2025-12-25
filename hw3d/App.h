@@ -20,4 +20,9 @@ private:
 	MyTimer timer;
 	std::vector<std::unique_ptr<Object>> obj;
 	bool pressed = false;
+	static constexpr float aspect_ratio = Window::ScreenWidth / float(Window::ScreenHeight);
+	static constexpr float nearZ = 0.5f;
+	static constexpr float farZ = 800.0f;
+	static constexpr float hfov = 70.0f;
+	static constexpr float hfovRad = hfov * 3.14159265f / 180.0f;
 };

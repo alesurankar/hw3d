@@ -3,10 +3,10 @@
 
 App::App()
 	:
-	wnd(800, 600, "My Window")
+	wnd("My Window")
 {
 	obj.emplace_back(std::make_unique<Object>(wnd.Gfx()));
-	wnd.Gfx().SetProjection(DirectX::XMMatrixPerspectiveLH(1.0f, 3.0f / 4.0f, 0.5f, 800.0f));
+	wnd.Gfx().SetProjection(DirectX::XMMatrixPerspectiveFovLH(hfovRad, aspect_ratio, nearZ, farZ));
 }
 
 

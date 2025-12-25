@@ -50,17 +50,14 @@ HINSTANCE Window::WindowClass::GetInstance() noexcept
 
 
 // Window Stuff
-Window::Window(int width, int height, const char* name)
-	:
-	width(width),
-	height(height)
+Window::Window(const char* name)
 {
 	// calculate window size based on desired client region size
 	RECT wr;
 	wr.left = 100;
-	wr.right = width + wr.left;
+	wr.right = ScreenWidth + wr.left;
 	wr.top = 100;
-	wr.bottom = height + wr.top;
+	wr.bottom = ScreenHeight + wr.top;
 	if (AdjustWindowRect(&wr, WS_CAPTION | WS_MINIMIZEBOX | WS_SYSMENU, FALSE) == 0)
 	{
 		throw CHWND_LAST_EXCEPT();
@@ -191,7 +188,7 @@ LRESULT Window::HandleMsg(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noe
 	{
 		const POINTS pt = MAKEPOINTS(lParam);
 		// in client region -> log move, and log enter + capture mouse (if not previously in window)
-		if (pt.x >= 0 && pt.x < width && pt.y >= 0 && pt.y < height)
+		if (pt.x >= 0 && pt.x < ScreenWidth && pt.y >= 0 && pt.y < ScreenHeight)
 		{
 			mouse.OnMouseMove(pt.x, pt.y);
 			if (!mouse.IsInWindow())
@@ -233,7 +230,7 @@ LRESULT Window::HandleMsg(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noe
 		const POINTS pt = MAKEPOINTS(lParam);
 		mouse.OnLeftReleased(pt.x, pt.y);
 		// release mouse if outside of window
-		if (pt.x < 0 || pt.x >= width || pt.y < 0 || pt.y >= height)
+		if (pt.x < 0 || pt.x >= ScreenWidth || pt.y < 0 || pt.y >= ScreenHeight)
 		{
 			ReleaseCapture();
 			mouse.OnMouseLeave();
@@ -245,7 +242,7 @@ LRESULT Window::HandleMsg(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noe
 		const POINTS pt = MAKEPOINTS(lParam);
 		mouse.OnRightReleased(pt.x, pt.y);
 		// release mouse if outside of window
-		if (pt.x < 0 || pt.x >= width || pt.y < 0 || pt.y >= height)
+		if (pt.x < 0 || pt.x >= ScreenWidth || pt.y < 0 || pt.y >= ScreenHeight)
 		{
 			ReleaseCapture();
 			mouse.OnMouseLeave();

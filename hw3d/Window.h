@@ -51,7 +51,7 @@ private:
 		HINSTANCE hInst;
 	};
 public:
-	Window(int width, int height, const char* name);
+	Window(const char* name);
 	~Window();
 	Window(const Window&) = delete;
 	Window& operator=(const Window&) = delete;
@@ -65,9 +65,9 @@ private:
 public:
 	Keyboard kbd;
 	Mouse mouse;
+	static constexpr unsigned int ScreenWidth = 800u;
+	static constexpr unsigned int ScreenHeight = 600u;
 private:
-	int width;
-	int height;
 	HWND hWnd;
 	std::unique_ptr<Graphics> pGfx;
 };
