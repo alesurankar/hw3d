@@ -521,12 +521,6 @@
     <ClInclude Include="RenderTarget.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="BlurPack.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include=".h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="BindingPass.h">
       <Filter>Header Files</Filter>
     </ClInclude>

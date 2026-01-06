@@ -177,7 +177,6 @@
     <ClCompile Include="WinMain.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include=".h" />
     <ClInclude Include="App.h" />
     <ClInclude Include="Bindable.h" />
     <ClInclude Include="BindableCodex.h" />
@@ -186,7 +185,6 @@
     <ClInclude Include="Blender.h" />
     <ClInclude Include="BlurOutlineRenderGraph.h" />
     <ClInclude Include="BlurOutlineDrawingPass.h" />
-    <ClInclude Include="BlurPack.h" />
     <ClInclude Include="BufferClearPass.h" />
     <ClInclude Include="BufferResource.h" />
     <ClInclude Include="Camera.h" />
