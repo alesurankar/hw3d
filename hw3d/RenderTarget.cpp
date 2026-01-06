@@ -141,16 +141,6 @@ namespace Bind
 	void ShaderInputRenderTarget::Bind(Graphics& gfx) noxnd
 	{
 		INFOMAN_NOHR(gfx);
-		////////////////////////////////////////////////
-		// to fix crashing
-		// Unbind all render targets + depth stencil
-		ID3D11RenderTargetView* nullRTVs[D3D11_SIMULTANEOUS_RENDER_TARGET_COUNT] = {};
-		GetContext(gfx)->OMSetRenderTargets(
-			D3D11_SIMULTANEOUS_RENDER_TARGET_COUNT,
-			nullRTVs,
-			nullptr
-		);
-		////////////////////////////////////////////////
 		GFX_THROW_INFO_ONLY(GetContext(gfx)->PSSetShaderResources(slot, 1, pShaderResourceView.GetAddressOf()));
 	}
 
