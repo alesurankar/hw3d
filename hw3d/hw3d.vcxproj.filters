@@ -446,9 +446,6 @@
     <ClInclude Include="MyXM.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="MyUtil.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="ScriptCommander.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -580,6 +577,9 @@
     </ClInclude>
     <ClInclude Include="VerticalBlurPass.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MyUtil.h">
+      <Filter>Header Files\Framework</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
