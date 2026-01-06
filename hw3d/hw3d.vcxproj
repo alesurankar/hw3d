@@ -231,6 +231,7 @@
     <ClInclude Include="MyTimer.h" />
     <ClInclude Include="MyUtil.h" />
     <ClInclude Include="MyWin.h" />
+    <ClInclude Include="MyWRL.h" />
     <ClInclude Include="MyXM.h" />
     <ClInclude Include="Node.h" />
     <ClInclude Include="NullPixelShader.h" />
@@ -287,7 +288,6 @@
     <None Include="DXGetErrorDescription.inl" />
     <None Include="DXGetErrorString.inl" />
     <None Include="DXTrace.inl" />
-    <None Include="HLSL.props" />
     <None Include="imgui_default.ini" />
     <None Include="process.json" />
   </ItemGroup>
@@ -484,10 +484,6 @@
       <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(ProjectDir)ShaderBins\%(Filename).cso</ObjectFileOutput>
       <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ProjectDir)ShaderBins\%(Filename).cso</ObjectFileOutput>
     </FxCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="perf.txt" />
-    <Text Include="perf_twitch.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -581,6 +581,9 @@
     <ClInclude Include="MyUtil.h">
       <Filter>Header Files\Framework</Filter>
     </ClInclude>
+    <ClInclude Include="MyWRL.h">
+      <Filter>Header Files\Framework</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="hw3d.rc">
@@ -603,9 +606,6 @@
       <Filter>Dxerr</Filter>
     </None>
     <None Include="process.json">
-      <Filter>Other</Filter>
-    </None>
-    <None Include="HLSL.props">
       <Filter>Other</Filter>
     </None>
     <None Include="imgui_default.ini" />
@@ -683,13 +683,5 @@
     <FxCompile Include="Test_PS.hlsl">
       <Filter>Shader\PS</Filter>
     </FxCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="perf.txt">
-      <Filter>Other</Filter>
-    </Text>
-    <Text Include="perf_twitch.txt">
-      <Filter>Other</Filter>
-    </Text>
   </ItemGroup>
 </Project>

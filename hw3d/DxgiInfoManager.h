@@ -1,6 +1,6 @@
 #pragma once
 #include "MyWin.h"
-#include <wrl.h>
+#include "MyWRL.h"
 #include <vector>
 #include <string>
 #include <dxgidebug.h>
