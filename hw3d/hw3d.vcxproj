@@ -143,8 +143,8 @@
     <ClCompile Include="Node.cpp" />
     <ClCompile Include="NullPixelShader.cpp" />
     <ClCompile Include="Pass.cpp" />
-    <ClCompile Include="PassInput.cpp" />
-    <ClCompile Include="PassOutput.cpp" />
+    <ClCompile Include="Sink.cpp" />
+    <ClCompile Include="Source.cpp" />
     <ClCompile Include="PixelShader.cpp" />
     <ClCompile Include="PointLight.cpp" />
     <ClCompile Include="Rasterizer.cpp" />
@@ -237,8 +237,8 @@
     <ClInclude Include="OutlineDrawingPass.h" />
     <ClInclude Include="OutlineMaskGenerationPass.h" />
     <ClInclude Include="Pass.h" />
-    <ClInclude Include="PassInput.h" />
-    <ClInclude Include="PassOutput.h" />
+    <ClInclude Include="Sink.h" />
+    <ClInclude Include="Source.h" />
     <ClInclude Include="PerfLog.h" />
     <ClInclude Include="Rasterizer.h" />
     <ClInclude Include="RenderGraph.h" />

@@ -249,10 +249,10 @@
     <ClCompile Include="Pass.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="PassInput.cpp">
+    <ClCompile Include="Sink.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="PassOutput.cpp">
+    <ClCompile Include="Source.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="RenderGraph.cpp">
@@ -542,10 +542,10 @@
     <ClInclude Include="OutlineMaskGenerationPass.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="PassInput.h">
+    <ClInclude Include="Sink.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="PassOutput.h">
+    <ClInclude Include="Source.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="RenderGraph.h">
