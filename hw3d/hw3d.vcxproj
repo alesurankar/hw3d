@@ -288,6 +288,7 @@
     <None Include="DXGetErrorString.inl" />
     <None Include="DXTrace.inl" />
     <None Include="HLSL.props" />
+    <None Include="imgui_default.ini" />
     <None Include="process.json" />
   </ItemGroup>
   <ItemGroup>

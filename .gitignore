@@ -80,6 +80,7 @@ StyleCopReport.xml
 !hw3d/assimp/bin/*
 hw3d/**/*.cso
 hw3d/**/*.ini
+!imgui_default.ini
 
 *.iobj
 *.pch
