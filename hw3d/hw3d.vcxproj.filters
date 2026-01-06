@@ -667,6 +667,12 @@
     <FxCompile Include="BlurOutline_PS.hlsl">
       <Filter>Shader\PS</Filter>
     </FxCompile>
+    <FxCompile Include="PhongDifMskSpc_PS.hlsl">
+      <Filter>Shader\PS</Filter>
+    </FxCompile>
+    <FxCompile Include="PhongDifMskSpc_VS.hlsl">
+      <Filter>Shader\VS</Filter>
+    </FxCompile>
   </ItemGroup>
   <ItemGroup>
     <Text Include="perf.txt">
