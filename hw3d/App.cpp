@@ -75,27 +75,27 @@ void App::HandleInput(float dt)
 	{
 		if (wnd.kbd.KeyIsPressed('W'))
 		{
-			cameras.GetCamera().Translate({ 0.0f,0.0f,speed });
+			cameras->Translate({ 0.0f,0.0f,speed });
 		}
 		if (wnd.kbd.KeyIsPressed('A'))
 		{
-			cameras.GetCamera().Translate({ -speed,0.0f,0.0f });
+			cameras->Translate({ -speed,0.0f,0.0f });
 		}
 		if (wnd.kbd.KeyIsPressed('S'))
 		{
-			cameras.GetCamera().Translate({ 0.0f,0.0f,-speed });
+			cameras->Translate({ 0.0f,0.0f,-speed });
 		}
 		if (wnd.kbd.KeyIsPressed('D'))
 		{
-			cameras.GetCamera().Translate({ speed,0.0f,0.0f });
+			cameras->Translate({ speed,0.0f,0.0f });
 		}
 		if (wnd.kbd.KeyIsPressed(VK_SPACE))
 		{
-			cameras.GetCamera().Translate({ 0.0f,speed,0.0f });
+			cameras->Translate({ 0.0f,speed,0.0f });
 		}
 		if (wnd.kbd.KeyIsPressed(VK_SHIFT))
 		{
-			cameras.GetCamera().Translate({ 0.0f,-speed,0.0f });
+			cameras->Translate({ 0.0f,-speed,0.0f });
 		}
 	}
 
@@ -103,7 +103,7 @@ void App::HandleInput(float dt)
 	{
 		if (!wnd.CursorEnabled())
 		{
-			cameras.GetCamera().Rotate((float)delta->x, (float)delta->y);
+			cameras->Rotate((float)delta->x, (float)delta->y);
 		}
 	}
 }
@@ -111,8 +111,8 @@ void App::HandleInput(float dt)
 void App::DoFrame(float dt)
 {
 	wnd.Gfx().BeginFrame(0.07f, 0.0f, 0.12f);
-	cameras.GetCamera().BindToGraphics(wnd.Gfx());
-	light.Bind(wnd.Gfx(), cameras.GetCamera().GetMatrix());
+	cameras->BindToGraphics(wnd.Gfx());
+	light.Bind(wnd.Gfx(), cameras->GetMatrix());
 
 	light.Submit();
 	cube.Submit();
