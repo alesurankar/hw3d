@@ -68,8 +68,12 @@ void App::HandleInput(float dt)
 		case VK_F1:
 			showDemoWindow = true;
 			break;
+		case VK_RETURN:
+			savingDepth = true;
+			break;
 		}
 	}
+
 	float speed = 2* dt;
 
 	if (!wnd.CursorEnabled())
@@ -143,6 +147,12 @@ void App::DoFrame(float dt)
 	// present
 	wnd.Gfx().EndFrame();
 	rg.Reset();
+
+	if (savingDepth)
+	{
+		rg.StoreDepth(wnd.Gfx(), "depth.png");
+		savingDepth = false;
+	}
 }
 
 void App::ShowImguiDemoWindow()
