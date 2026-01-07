@@ -1,14 +1,14 @@
 #include "RenderGraphCompileException.h"
 #include <sstream>
 
+
 namespace Rgph
 {
 	RenderGraphCompileException::RenderGraphCompileException(std::string message, int line, const char* file) noexcept
 		:
 		MyException(line, file),
 		message(std::move(message))
-	{
-	}
+	{}
 
 	const char* RenderGraphCompileException::what() const noexcept
 	{

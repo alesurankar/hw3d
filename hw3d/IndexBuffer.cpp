@@ -8,7 +8,6 @@ namespace Bind
 		:
 		IndexBuffer(gfx, "?", indices)
 	{}
-
 	IndexBuffer::IndexBuffer(Graphics& gfx, std::string tag, const std::vector<unsigned short>& indices)
 		:
 		tag(tag),

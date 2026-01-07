@@ -6,8 +6,7 @@ namespace Bind
 	VertexBuffer::VertexBuffer(Graphics& gfx, const Dvtx::VertexBuffer& vbuf)
 		:
 		VertexBuffer(gfx, "?", vbuf)
-	{
-	}
+	{}
 	VertexBuffer::VertexBuffer(Graphics& gfx, const std::string& tag, const Dvtx::VertexBuffer& vbuf)
 		:
 		stride((UINT)vbuf.GetLayout().Size()),

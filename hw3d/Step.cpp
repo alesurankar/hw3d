@@ -20,8 +20,7 @@ void Step::InitializeParentReferences(const Drawable& parent) noexcept
 Step::Step(std::string targetPassName)
 	:
 	targetPassName{ std::move(targetPassName) }
-{
-}
+{}
 
 Step::Step(const Step& src) noexcept
 	:

@@ -63,5 +63,4 @@ void Drawable::LinkTechniques(Rgph::RenderGraph& rg)
 }
 
 Drawable::~Drawable()
-{
-}
+{}

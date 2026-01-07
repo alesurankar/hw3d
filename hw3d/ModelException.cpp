@@ -5,8 +5,7 @@ ModelException::ModelException(int line, const char* file, std::string note) noe
 	:
 	MyException(line, file),
 	note(std::move(note))
-{
-}
+{}
 
 const char* ModelException::what() const noexcept
 {

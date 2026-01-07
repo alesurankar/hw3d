@@ -24,16 +24,14 @@ void Technique::InitializeParentReferences(const Drawable& parent) noexcept
 Technique::Technique(size_t channels)
 	:
 	channels{ channels }
-{
-}
+{}
 
 Technique::Technique(std::string name, size_t channels, bool startActive) noexcept
 	:
 	active(startActive),
 	name(name),
 	channels(channels)
-{
-}
+{}
 
 void Technique::AddStep(Step step) noexcept
 {

@@ -12,8 +12,7 @@ namespace Rgph
 	Pass::Pass(std::string name) noexcept
 		:
 		name(std::move(name))
-	{
-	}
+	{}
 
 	void Pass::Reset() noxnd 
 	{}
@@ -36,8 +35,7 @@ namespace Rgph
 	}
 
 	Pass::~Pass()
-	{
-	}
+	{}
 
 	const std::vector<std::unique_ptr<Sink>>& Pass::GetSinks() const
 	{

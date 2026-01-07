@@ -193,8 +193,7 @@ namespace Bind
 	ShaderInputDepthStencil::ShaderInputDepthStencil(Graphics& gfx, UINT slot, Usage usage)
 		:
 		ShaderInputDepthStencil(gfx, gfx.GetWidth(), gfx.GetHeight(), slot, usage)
-	{
-	}
+	{}
 
 	ShaderInputDepthStencil::ShaderInputDepthStencil(Graphics& gfx, UINT width, UINT height, UINT slot, Usage usage)
 		:
@@ -226,14 +225,12 @@ namespace Bind
 	OutputOnlyDepthStencil::OutputOnlyDepthStencil(Graphics& gfx)
 		:
 		OutputOnlyDepthStencil(gfx, gfx.GetWidth(), gfx.GetHeight())
-	{
-	}
+	{}
 
 	OutputOnlyDepthStencil::OutputOnlyDepthStencil(Graphics& gfx, UINT width, UINT height)
 		:
 		DepthStencil(gfx, width, height, false, Usage::DepthStencil)
-	{
-	}
+	{}
 
 	void OutputOnlyDepthStencil::Bind(Graphics& gfx) noxnd
 	{

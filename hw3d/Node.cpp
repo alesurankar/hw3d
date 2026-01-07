@@ -7,9 +7,9 @@ namespace dx = DirectX;
 
 Node::Node(int id, const std::string& name, std::vector<Mesh*> meshPtrs, const DirectX::XMMATRIX& transform_in) noxnd
 	:
-id(id),
-meshPtrs(std::move(meshPtrs)),
-name(name)
+	id(id),
+	meshPtrs(std::move(meshPtrs)),
+	name(name)
 {
 	dx::XMStoreFloat4x4(&transform, transform_in);
 	dx::XMStoreFloat4x4(&appliedTransform, dx::XMMatrixIdentity());

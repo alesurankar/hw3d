@@ -23,8 +23,7 @@ namespace Rgph
 	}
 
 	RenderGraph::~RenderGraph()
-	{
-	}
+	{}
 
 	void RenderGraph::SetSinkTarget(const std::string& sinkName, const std::string& target)
 	{
@@ -205,7 +204,6 @@ namespace Rgph
 		}
 		throw RGC_EXCEPTION("In RenderGraph::GetRenderQueue, pass not found: " + passName);
 	}
-
 	void Rgph::RenderGraph::StoreDepth(Graphics& gfx, const std::string& path)
 	{
 		masterDepth->ToSurface(gfx).Save(path);

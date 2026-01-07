@@ -197,6 +197,5 @@ namespace Bind
 	OutputOnlyRenderTarget::OutputOnlyRenderTarget(Graphics& gfx, ID3D11Texture2D* pTexture)
 		:
 		RenderTarget(gfx, pTexture)
-	{
-	}
+	{}
 }

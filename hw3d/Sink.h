@@ -73,8 +73,7 @@ namespace Rgph
 			:
 			Sink(std::move(registeredName)),
 			target(bind)
-		{
-		}
+		{}
 	private:
 		std::shared_ptr<T>& target;
 		bool linked = false;
@@ -110,8 +109,7 @@ namespace Rgph
 			Sink(std::move(registeredName)),
 			container(container),
 			index(index)
-		{
-		}
+		{}
 	private:
 		std::vector<std::shared_ptr<Bind::Bindable>>& container;
 		size_t index;
@@ -151,8 +149,7 @@ namespace Rgph
 			:
 			Sink(std::move(registeredName)),
 			target(target)
-		{
-		}
+		{}
 	private:
 		std::shared_ptr<T>& target;
 		bool linked = false;

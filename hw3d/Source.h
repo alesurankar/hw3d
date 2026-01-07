@@ -37,11 +37,9 @@ namespace Rgph
 			:
 			Source(std::move(name)),
 			buffer(buffer)
-		{
-		}
+		{}
 		void PostLinkValidate() const
-		{
-		}
+		{}
 		std::shared_ptr<Bind::BufferResource> YieldBuffer() override
 		{
 			if (linked)
@@ -68,11 +66,9 @@ namespace Rgph
 			:
 			Source(std::move(name)),
 			bind(bind)
-		{
-		}
+		{}
 		void PostLinkValidate() const
-		{
-		}
+		{}
 		std::shared_ptr<Bind::Bindable> YieldBindable() override
 		{
 			return bind;

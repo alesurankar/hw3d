@@ -68,8 +68,7 @@ void Model::LinkTechniques(Rgph::RenderGraph& rg)
 }
 
 Model::~Model() noexcept
-{
-}
+{}
 
 std::unique_ptr<Node> Model::ParseNode(int& nextId, const aiNode& node, float scale) noexcept
 {

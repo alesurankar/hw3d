@@ -17,8 +17,7 @@ namespace dx = DirectX;
 Mesh::Mesh(Graphics& gfx, const Material& mat, const aiMesh& mesh, float scale) noxnd
 	:
 Drawable(gfx, mat, mesh, scale)
-{
-}
+{}
 
 void Mesh::Submit(size_t channels, dx::FXMMATRIX accumulatedTranform) const noxnd
 {

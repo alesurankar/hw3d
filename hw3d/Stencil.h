@@ -3,7 +3,6 @@
 #include "BindableCodex.h"
 #include "GraphicsThrowMacros.h"
 
-
 namespace Bind
 {
 	class Stencil : public Bindable
