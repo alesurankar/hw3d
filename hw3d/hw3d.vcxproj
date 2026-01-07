@@ -117,6 +117,7 @@
     <ClCompile Include="dxerr.cpp" />
     <ClCompile Include="DxgiInfoManager.cpp" />
     <ClCompile Include="DynamicConstant.cpp" />
+    <ClCompile Include="Frustum.cpp" />
     <ClCompile Include="FullScreenPass.cpp" />
     <ClCompile Include="Graphics.cpp" />
     <ClCompile Include="GraphicsResource.cpp" />
@@ -203,6 +204,7 @@
     <ClInclude Include="dxerr.h" />
     <ClInclude Include="DxgiInfoManager.h" />
     <ClInclude Include="DynamicConstant.h" />
+    <ClInclude Include="Frustum.h" />
     <ClInclude Include="FullScreenPass.h" />
     <ClInclude Include="Graphics.h" />
     <ClInclude Include="GraphicsResource.h" />
