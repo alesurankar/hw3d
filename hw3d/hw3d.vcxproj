@@ -147,6 +147,7 @@
     <ClCompile Include="NullPixelShader.cpp" />
     <ClCompile Include="Pass.cpp" />
     <ClCompile Include="Projection.cpp" />
+    <ClCompile Include="ShadowCameraCBuf.cpp" />
     <ClCompile Include="Sink.cpp" />
     <ClCompile Include="Source.cpp" />
     <ClCompile Include="PixelShader.cpp" />
@@ -247,6 +248,7 @@
     <ClInclude Include="OutlineMaskGenerationPass.h" />
     <ClInclude Include="Pass.h" />
     <ClInclude Include="Projection.h" />
+    <ClInclude Include="ShadowCameraCBuf.h" />
     <ClInclude Include="ShadowMappingPass.h" />
     <ClInclude Include="Sink.h" />
     <ClInclude Include="Source.h" />

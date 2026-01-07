@@ -294,6 +294,9 @@
     <ClCompile Include="Frustum.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ShadowCameraCBuf.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Drawable.h">
@@ -615,6 +618,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ShadowMappingPass.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ShadowCameraCBuf.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
