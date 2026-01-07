@@ -247,6 +247,7 @@
     <ClInclude Include="OutlineMaskGenerationPass.h" />
     <ClInclude Include="Pass.h" />
     <ClInclude Include="Projection.h" />
+    <ClInclude Include="ShadowMappingPass.h" />
     <ClInclude Include="Sink.h" />
     <ClInclude Include="Source.h" />
     <ClInclude Include="PerfLog.h" />
