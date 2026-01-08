@@ -309,6 +309,7 @@
     <None Include="LightVectorData.hlsli" />
     <None Include="imgui_default.ini" />
     <None Include="process.json" />
+    <None Include="VShadow.hlsli" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Fullscreen_VS.hlsl">
