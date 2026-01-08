@@ -696,6 +696,8 @@
     <None Include="PShadow.hlsli">
       <Filter>Shader\Common</Filter>
     </None>
+    <None Include="_PShadow_Dynamic.hlsli" />
+    <None Include="_PShadow_Static.hlsli" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="PhongDif_PS.hlsl">
