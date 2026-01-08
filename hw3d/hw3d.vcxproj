@@ -304,6 +304,7 @@
     <None Include="DXGetErrorString.inl" />
     <None Include="DXTrace.inl" />
     <None Include="PointLight.hlsli" />
+    <None Include="PShadow.hlsli" />
     <None Include="ShaderOps.hlsli" />
     <None Include="Transform.hlsli" />
     <None Include="LightVectorData.hlsli" />
