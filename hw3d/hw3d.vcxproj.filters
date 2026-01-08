@@ -672,6 +672,18 @@
       <Filter>Other</Filter>
     </None>
     <None Include="imgui_default.ini" />
+    <None Include="LightVectorData.hlsli">
+      <Filter>Shader\Common</Filter>
+    </None>
+    <None Include="PointLight.hlsli">
+      <Filter>Shader\Common</Filter>
+    </None>
+    <None Include="ShaderOps.hlsli">
+      <Filter>Shader\Common</Filter>
+    </None>
+    <None Include="Transform.hlsli">
+      <Filter>Shader\Common</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="PhongDif_PS.hlsl">
@@ -734,23 +746,11 @@
     <FxCompile Include="PhongDifMskSpc_VS.hlsl">
       <Filter>Shader\VS</Filter>
     </FxCompile>
-    <FxCompile Include="Test1_VS.hlsl">
-      <Filter>Shader\VS</Filter>
-    </FxCompile>
-    <FxCompile Include="Test2_VS.hlsl">
-      <Filter>Shader\VS</Filter>
-    </FxCompile>
-    <FxCompile Include="Test_PS.hlsl">
-      <Filter>Shader\PS</Filter>
-    </FxCompile>
     <FxCompile Include="ShadowTest_PS.hlsl">
       <Filter>Shader\PS</Filter>
     </FxCompile>
     <FxCompile Include="ShadowTest_VS.hlsl">
       <Filter>Shader\VS</Filter>
-    </FxCompile>
-    <FxCompile Include="xPhongDifNro.hlsl">
-      <Filter>Shader\PS</Filter>
     </FxCompile>
   </ItemGroup>
 </Project>
