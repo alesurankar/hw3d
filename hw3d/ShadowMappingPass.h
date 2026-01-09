@@ -74,23 +74,31 @@ namespace Rgph
 			//////////////////////////////////////////////////////
 			const auto camPos = pShadowCamera->GetPos();
 			const auto pos = DirectX::XMLoadFloat3(&camPos);
-			/// //////////////////////////////////////////////////
+			/////////////////////////////////////////////////////
 
 			gfx.SetProjection(XMLoadFloat4x4(&projection));
 			for (size_t i = 0; i < 6; i++)
 			{
 				auto d = pDepthCube->GetDepthBuffer(i);
 				d->Clear(gfx);
+			}
+			for (size_t i = 0; i < 1; i++)
+			{
+				auto d = pDepthCube->GetDepthBuffer(i);
 				SetDepthBuffer(std::move(d));
 				const auto lookAt = pos + XMLoadFloat3(&cameraDirections[i]);
 				gfx.SetCamera(XMMatrixLookAtLH(pos, lookAt, XMLoadFloat3(&cameraUps[i])));
 				RenderQueuePass::Execute(gfx);
 			}
 		}
-		//void DumpShadowMap( Graphics& gfx,const std::string& path ) const
-		//{
-		//	depthStencil->ToSurface( gfx ).Save( path );
-		//}
+		void DumpShadowMap(Graphics& gfx, const std::string& path) const
+		{
+			for (size_t i = 0; i < 6; i++)
+			{
+				auto d = pDepthCube->GetDepthBuffer(i);
+				d->ToSurface(gfx).Save(path + std::to_string(i) + ".png");
+			}
+		}
 	private:
 		void SetDepthBuffer(std::shared_ptr<Bind::DepthStencil> ds) const
 		{
