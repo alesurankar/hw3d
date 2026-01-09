@@ -327,6 +327,9 @@
     <ClCompile Include="CubeTexture.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="cnpy.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Drawable.h">
@@ -671,6 +674,9 @@
     <ClInclude Include="Viewport.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="cnpy.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="hw3d.rc">
@@ -796,6 +802,9 @@
     </FxCompile>
     <FxCompile Include="Shadow_VS.hlsl">
       <Filter>Shader\VS</Filter>
+    </FxCompile>
+    <FxCompile Include="Shadow_PS.hlsl">
+      <Filter>Shader\PS</Filter>
     </FxCompile>
   </ItemGroup>
 </Project>
