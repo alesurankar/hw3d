@@ -32,10 +32,7 @@ private:
 	float speed_factor = 1.0f;
 	CameraContainer cameras;
 	PointLight light;
-	TestCube cube{ wnd.Gfx(),4.0f };
-	TestCube cube2{ wnd.Gfx(),4.0f };
-	Model sponza{ wnd.Gfx(),"Models\\sponza\\sponza.obj",1.0f / 20.0f };
-	Model gobber{ wnd.Gfx(),"Models\\gobber\\GoblinX.obj",4.0f };
-	Model nano{ wnd.Gfx(),"Models\\nano_textured\\nanosuit.obj",2.0f };
+
+	SolidSphere sphere{ wnd.Gfx(),4.0f, /*DirectX::XMFLOAT3{0.5f,0.4f,0.8f}*/ };
 	bool savingDepth = false;
 };

@@ -5,9 +5,12 @@
 #include "Sphere.h"
 #include "Stencil.h"
 #include "Channels.h"
+#include "Color.h"
 
 
-SolidSphere::SolidSphere(Graphics& gfx, float radius)
+SolidSphere::SolidSphere(Graphics& gfx, float radius, DirectX::XMFLOAT3 color_in)
+	:
+	color(color_in)
 {
 	using namespace Bind;
 	namespace dx = DirectX;
@@ -31,7 +34,6 @@ SolidSphere::SolidSphere(Graphics& gfx, float radius)
 
 		struct PSColorConstant
 		{
-			dx::XMFLOAT3 color = { 1.0f,1.0f,1.0f };
 			float padding;
 		} colorConst;
 		only.AddBindable(PixelConstantBuffer<PSColorConstant>::Resolve(gfx, colorConst, 1u));

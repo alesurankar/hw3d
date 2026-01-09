@@ -12,7 +12,7 @@ PointLight::PointLight(Graphics& gfx, DirectX::XMFLOAT3 pos, float radius)
 		pos,
 		{ 0.05f,0.05f,0.05f },
 		{ 1.0f,1.0f,1.0f },
-		1.7f,
+		2.0f,
 		0.5f,
 		0.01f,
 		0.0005f,
@@ -21,9 +21,9 @@ PointLight::PointLight(Graphics& gfx, DirectX::XMFLOAT3 pos, float radius)
 	pCamera = std::make_shared<Camera>(gfx, "Light", cbData.pos, 0.0f, PI / 2.0f, true);
 }
 
-void PointLight::SpawnControlWindow() noexcept
+void PointLight::SpawnControlWindow(Graphics& gfx, const char* name) noexcept
 {
-	if (ImGui::Begin("Light"))
+	if (ImGui::Begin(name))
 	{
 		bool dirtyPos = false;
 		const auto d = [&dirtyPos](bool dirty) {dirtyPos = dirtyPos || dirty; };
